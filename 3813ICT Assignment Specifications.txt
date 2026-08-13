@@ -72,3 +72,162 @@
 |Which fields in the profile can users edit?|All except the email (unique identifier).|
 |Does the user have a username?|It's up to you if you want to offer this.|
 |Can other users view limited public profile information, or is the entire profile private?|Profiles are private.|
+
+
+Questions:
+How many friends/groups can a user be with/in?
+Is there a text message size limit?
+Do we need an online indicator?
+Do we need to implement a seen feature if the recipient isn’t online at the time?
+Do we need a notification system when getting messages?
+How should we display the friends/ groups list order (chronological order, most recently interacted with or any particular order)?
+Can we download and use css frameworks for the UI to simplify the design?
+Can we use GitHubs 0Auth framework for user sign up or authentication or does node have something like that already that we need to use?
+Will we be storing the chat history forever?
+Does it need to contain video messages or gifs?
+how do you propose groups work?
+ Should users be able to log in and create an account ? 
+unsending messages? , cooldown?
+Can a user have a user profile (including things like a profile picture/bio?)
+Can users edit/delete their own messages?
+Can users send voice recordings?
+Can normal users create groups or channels, or is that limited to administrators?
+replying to messages as a feature? 
+What is the number of concurrent users that we expect to support on average? 
+What are the minimum technical specifications for the target users? (i.e. app operates with less than 1G RAM used, app uses less than spec daily bandwidth) 
+Will the app maintain a database of all user accounts and/or will users be able to create temporary guest accounts? 
+What private information should be stored in users’ accounts; is name, email, password adequate or is necessary to retain more comprehensive user information?
+ Will messages between users be protected by end-to-end encryption or other cryptographic techniques? 
+ Does the app need to manage or process financial transactions i.e. user account subscription payments.
+Is support for parental safety controls planned? i.e. automatic censoring of inappropriate words/phrases, automatic removal of links to external websites, etc. 
+ Will records of conversations be stored locally on the user’s machine or will users read/write to an online record of the conversation without a local record? 
+ Will the app support sending messages to users who are currently offline i.e. delay messages and push them to the user when they next login. 
+ Will the app include any or multiple forms of technical support (help documentation, contact support, app operational instructions)? 
+ Will the app support multiple languages (if yes) will the app support automatic translation of messages from the senders preferred language to the receivers preferred language?
+ Should there be any message censoring (say for swear words)?
+ like a green tick next to the user 
+ Should users be able to customise their UI, say different fonts, font sizes colour schemes (light/dark mode) etc?
+ In a list of people in the group or a list of friends
+ are we doing a filtering system for messages to new users; for example a message request, group invitation etc?
+ When a person joins a chat room, do they see the chat history?
+ assuming we will do a live multi-user demo how many users will we be expected to simulate?
+ is there a minimum responsiveness for the application we will be penalised for not reaching?
+ will user blocking/reporting be a necessary feature?
+ any font or other stylistic requirements for the look of the app, besides (presumably) using the logo colours?
+ do we need a  direct user to user chat, or will we just treat scenario as a group with just 1 chat and 2 users in it?
+ similar to some other people's question about a swear filter, but should we have automatic message moderation/censorship?
+ Will everyone have their roles, such as admin and members? Will the admin able to remove/add people in the group chats? 
+Are users able to search chat for keywords?
+ Is each room a channel? 
+How is an administrator going to find a user to add them? Do all accounts have a unique ID (if there are multiple similar usernames), or do we have to have a system that checks if the username is already taken?
+ Is there a maximum number of members allowed in a single group/chat room?
+Can users block other users?
+  I am going to ask the question again that was asked at the beginning you didn’t answer: Can you read my email and respond that I sent last week ASAP sir please? 
+so in essence the super user sort of acts as a bot for group creation/deletion and user deletion from the system but is an actual person behind it?
+ Jokes - you must be capable of serving 1000000 users simultaneously.
+Make your code performant
+ Should users be able to reply to a specific message (threaded replies)?
+ Do you have any branding guidelines or preferred colours?
+ Should users be able to edit or delete messages after they have been sent?
+ non admins requesting users be added to groups? 
+Can you like make a list of all these questions and requirements with the answers to them in this lecture and like post it in canvas or teams or like send a file to see all the questions? Because it is a big handful to remember all of it.  
+when typing in the room, do you have to have an indicator to show that someone is typing 
+ Can you give us a list to specify each one’s permission levels, such as: super admin: mange the main whole system (create group, point admin, delete user account), admin of the group: approve/reject joining/leaving request, kick the member out of the room, ask super admin to delete someone’s account from the system, access whole chat history, re-appoint admin; member: chat, delete/edit own message, download chat history , leave the group……. 
+just to clarify do we have until end of week 2 or end of week 3, to ask further questions for the client
+Will there be bonus points for having a mobile client?
+I'm not saying I could do it - but doing Mobile Application Development last semester was fun.
+ Again about the super admin, do they have access to any chat history, say they open any chat and see the history just like other chat members?
+will different groups have identifiers like automatic numbers or names? will these be customisable by admins 
+ 
+Do we need to add Malicious link detection?
+ Will there be any 1 on 1 chat groups? 
+If a message has been deleted:
+•	Is the original message still logged? ie. harassment, inflammatory comments etc
+•	What if another user 'quotes' the message?
+How should requests between users and administrators be submitted: through dedicated request forms and approval queues, or through private one-to-one messages?
+What about a maximum age?
+ is there any password creation enforcement for accounts (e.g. must have nums/chars/capitals, must be a certain length)? are new passwords required after a certain time? 
+is there a file size upload limit for media? 
+ will we be getting a specific document outlining assignment requirements or just this briefing 
+ What exactly must be functional in Phase 1, rather than only shown using mock data?
+ will we have access to this recording once it’s done 
+Do voice chat features need to be added too?
+if we misinterpret the requirements, is there room to achieve full marks if our assumptions cover the miscommunication? 
+does the project have any data retention polices? are data items deleted after some condition or if a database has reached a certain number of entries? (e.g. old messages/accounts)
+Can a user request someone else be added to a group?
+This session is good for interactive shaping of the assignment requirements.
+Participation/attendance is good.
+Is there any UI design requirements like sidebars , tab bars ?
+was there any existing mockups or wireframes?
+UI wise
+ what is the required level of cyber security required beyond password hashing
+ can users request and join multiple groups 
+Does each user need a profile page, and should users be able to upload and change their own profile image?
+ Would there be an option for groups to go private? Not in the list of groups that every user can see/try to get in?
+can users be able to reply to a specific message
+is a friend system needed or will we keep it as no relation between users outside of being in the same chat room?
+ Should users be able to see all existing groups from the beginning, or only groups they have joined or been invited to?
+can you cover the distinction of permissions between superadmins, group admins, and normal users again? can group admins create any number of chatrooms from user requests,  like superadmin ban requests?
+Wait so in the assignment phase 1 is about listing and explaining stuff in a document and phases 2 is actually building the app?
+Also, in phase 2 when building the app do we like combine stuff from code IDE (ELF VSCode) and other stuff you said in week 1 lecture like Type script, mongo, node.js etc.
+Just to confirm, users have a unique stack of messages stored locally that is initially primed with the 5 most recent messages upon joining a room?
+Can other users view profile pages? 
+Can the background of chat groups be customised (by the group admins) by colour theme or even uploading an image to be the chat background?
+ 
+Runtime limitations per user? Spam and bot handling?
+What other operations are available on messages (delete yes, but what about timestamp display or emoji reactions)?
+i get its meant to be intuitive but should we still make a simple message for new users with instructions on how to use the app? like join a group etc
+ What about some cool down timer if some user is flooding the chat?
+Does the super admin require a dedicated administration dashboard, or are administrative functions integrated into the normal application interface?
+ will files be able to be sent or only media/gifs
+How are we going to test having multiple users/admin, just running multiple separate web sessions? Is super admin a real person, a member of the system, or just a robot created by the system? 
+Do we restrict users to not be able to change their username/name?
+As we could get people changing constantly and it could become open for abuse. 
+Should the timestamp show the local time the sender pressed send or the time the message was integrated into the chat log by the server local time?
+ If the supper admin is a real person, who is pointing him as this role? 
+Sure, but the client could be in USA and the server could be in Australia, which time locale should be used? 
+Double checking - can the password be changed?
+ So I guess we need to create a module to reset/recover their pw?
+do we need to verify emails?
+Forgot password, need to ask the super admin to set a default?
+how do you contact the super admin if you cant access the app?
+ Have we missed anything obvious?
+Error handling?
+ Unit/integration tests ?
+
+Info:
+
+App called “Fabulari”
+Unique user id
+No max group number
+Superadmin can’t send messages to people
+Admin can remove people from groups
+Superadmins can ban people
+No bonus for mobile app
+Group admin can be in multiple groups
+Admins set max or min age
+No hyperlinks outside chat system, don’t display urls as hyperlinks
+Files less than 2mb
+Priority on pc, bonus if can be responsive on tablet size
+No voice chat features
+No specific colours, follow logo colours, blue, yellow, red
+Message history is only last 5 messages that get stored in database, if in chat actively can see the messages sent in that session but when leave and join only the last 5 messages display
+No sort of cyber security
+Make sure passwords are hashed
+Users can join multiple groups
+Users need profile pages, can have their own profile photo
+Can change their ui to be light or dark mode
+No reply system
+No friend system
+User see all existing groups, can select and ask admin for permission to join
+
+Sa – has ability to create group, assign user admin of group, delete user from system
+Ga – has ability to edit metadata about a group, change description, change age limit, cant change name, request to sa to have person deleted from group, request to ban someone, create new rooms from user request
+U – can chat, request new room
+
+Time stamp on messages
+User profile photo on messages
+Only pngs can be sent
+Changing password, entering old password and then entering new password 2 times
+On server compare the old password to the one in the database, then the 2 new passwords are the same
+If you forget your password, you have to make a new account
