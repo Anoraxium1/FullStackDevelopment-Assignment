@@ -1,0 +1,74 @@
+## Client Q&A — Requirements Clarifications
+
+### Group Lifecycle (Create / Delete)
+
+|Specification|Answer / Assumption|
+|---|---|
+|Do all actions performed by a Group Admin or Super Admin need to originate from a user request?|No. E.g. a group admin could modify the name, description, theme colour, or age limit of a group without a request from anyone. Creation of a group requires a request from a user → super admin, and a deletion request from a group admin → super admin.|
+|For the assignment — can a group admin disband their group?|A group must always have a group admin. That admin can request the super admin to delete the group.|
+|What do you mean by "disappear"? So the group admin asks the super admin to delete the group if they cannot get a replacement group admin?|Disappear = delete/remove.|
+|When a user requests a group is created, do they submit the title, description, age limit, and colour theme with the request? Or does the user submit a general request and after super admin approval they add the details themselves?|Yes, the user should send the required details in the request. The super admin creates the group based on that request; the group admin then has control from there on until a deletion is required, at which point it goes back to the super admin.|
+
+### Group Admin Role & Permissions
+
+| Specification                                                                                                                                                                                                                                                                               | Answer / Assumption                                                                                                                                                                         |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Can Group Admins edit existing chat rooms (e.g., rename a room), or can they only create and delete them?                                                                                                                                                                                   | A group admin should be able to edit details for a chat room. They create them, so they should have the ability to modify in case they had a typo.                                          |
+| Should a group admin show some indication that they are the group admin for a group when they are chatting in that group?                                                                                                                                                                   | Yes.                                                                                                                                                                                        |
+| Who can demote group administrators?                                                                                                                                                                                                                                                        | If multiple group admins exist, any admin could demote another — just as an existing admin can promote an existing member of the group to be an admin. The group must always have an admin. |
+| Can the super admin appoint a group admin if the current group admin cannot promote one from their group and wants to leave? Or, what can members do if they want to report the group admin but have no way to report it to the super admin — will they just leave the group straight away? | The existing group admin could select any user in the group for the admin role and then demote themselves. This could create a "tag, you're it" situation, but that's OK for now.           |
+| Can a group admin leave the admin role by themselves if there is another admin there?                                                                                                                                                                                                       | Yes.                                                                                                                                                                                        |
+| If a group can have multiple group admins, how does a regular user in an existing group become a group admin? The default group admin is the user that requested the group — would that user submit a request to the super admin or group admin?                                            | The existing group admin has the ability to promote any existing group member to a group admin.                                                                                             |
+
+### Groups & Membership
+
+|Specification|Answer / Assumption|
+|---|---|
+|Is there a limit to the number of groups a user can be administrator of?|No limit to the number of groups a user can be a group admin of.|
+|Must group administrators be able to invite users?|No, users request to join.|
+|Are age restrictions required for groups and channels, or groups only?|Age limits are set for a group and apply to all channels in that group.|
+|Where a group admin modifies the minimum age limit after users are already part of the group, if users below the new threshold are present, do they automatically get booted?|Yes, any existing members below the age limit should be removed.|
+|Do users only have visibility of groups that are equal to or above their set age? Or can they view all, and if they register for one below their age restriction, are they automatically rejected?|I think they can see all, but would be rejected if they try to join.|
+|It has been stated that groups can be customised by colour theme — is this the same for chat rooms?|The theme would extend to the rooms in the group.|
+|Do groups have a "profile" picture?|No.|
+|In the lecture the slide states "Users can be members of multiple groups and can then access all rooms in that group (if they meet the min age limit – self reported)" — does this mean the group has a minimum age limit and chat rooms can also have their own minimum age limit?|Group membership has a minimum age limit.|
+
+### Channels / Chat Rooms
+
+|Specification|Answer / Assumption|
+|---|---|
+|Are group members required to request new channels, or can only administrators propose channels?|Regular users propose the channels/rooms. Group admins approve or reject. A rejection must have a reason applied.|
+|Must users and administrators see historical approved/rejected requests, or only pending requests?|Users will have access to their pending requests and have available past rejected requests.|
+|Can requesters cancel pending requests?|Once a request is made it is made — no cancelling requests.|
+|Is there a minimum number of chat rooms required within a group? i.e. should there always be at least one chat room for a group?|No, a group could have 0 or unlimited chat rooms.|
+|In regards to users seeing who else is in a chat room — does this mean they can see a user list, or just a notification when people join/leave?|A user who is currently in a room/channel chatting will have the ability to see a list of who else is in the room. On top of that, they will get a notification when a user joins or leaves the room/channel.|
+
+### Bans, Reports & Audit
+
+|Specification|Answer / Assumption|
+|---|---|
+|Can a user request for a user to be deleted from the system? Or can only the Group Admin do it?|Only the super admin can delete a user from the system, based on a request from a group admin. A group admin can ban a user from an individual group.|
+|Can the super administrator create, edit, deactivate or delete user accounts directly?|Users must register themselves. A super admin can ban a user from the system — this is a hard ban/delete. The email address can never be used again.|
+|Does the super administrator need an audit-log page?|Yes. Should be able to filter audit records based on type, in date order.|
+|Does removing a user from the system mean deactivate/soft deletion or full deletion?|Removing a user from a group (by the group admin) does not delete the user, just their ability to join that group. A super admin can completely delete a user (unless they are a group admin, in which case a replacement group admin must be assigned first).|
+|Is there an un-ban system, or does being banned from a group mean you are banned forever?|Banned forever (you can always create a new account).|
+|Can administrators ban users directly without first receiving a report?|No.|
+|Can administrators then make a request and self-approve it?|No.|
+|Do group administrators have access to a full user list inclusive of those that have been previously banned for their group (restricted to basic user details, without visibility of other groups the user is in)?|Group admin can see all of the allowed members and banned users for their group.|
+|Do super admins have access to a full database user list inclusive of those previously banned in the system, with audit trail features (e.g. showing when a user requested to join a group, submitted a ban request, was accepted, etc.)?|Super admin should be able to see accounts that have been permanently banned. Super admin should be able to view and filter all audit logs.|
+
+### Super Admin
+
+|Specification|Answer / Assumption|
+|---|---|
+|Must there be exactly one super administrator?|Yes, only one super admin. You cannot delete it if you don't create it — yes.|
+|Can the super administrator create groups directly, or only approve group requests?|A super admin must action requests only.|
+|Can regular users communicate directly with the super admin?|No.|
+
+### Users & Profiles
+
+|Specification|Answer / Assumption|
+|---|---|
+|Which fields in the profile can users edit?|All except the email (unique identifier).|
+|Does the user have a username?|It's up to you if you want to offer this.|
+|Can other users view limited public profile information, or is the entire profile private?|Profiles are private.|
