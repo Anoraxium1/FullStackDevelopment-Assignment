@@ -1,3 +1,4 @@
 need to add to settings, ability to change username
 add wireframe for admin and super admin
 with the main chat there are groups then rooms in each group like discord and different chat channels
+split login and signup page to be two separate wireframes, makes it a bit clearer what will be on each page
