@@ -1,6 +1,6 @@
 # Lachlan Barnett, s5438449, Thurday 9 - 11
 
-Fabulari is a real-time chat application developed as part of the 3813ICT assignment, built on using systems such as Angular and Node.js powering live communication. Similar to platforms like WhatsApp or Discord, it allows users to exchange text and image messages, while supporting group structures for organising conversations. The application also includes adminstrative functionality, allowing privileged users to manage tasks such as adding new groups, deleting groups, modifying description and names of groups and much more. Development follows a git workflow, with frequent commits to demonstrate the project's progress from initial design through to full implementation across its two phases.
+Fabulari is a real-time chat application developed as part of the 3813ICT assignment, built on using systems such as Angular and Node.js powering live communication. Similar to platforms like WhatsApp or Discord, it allows users to exchange text and image messages, while supporting group structures for organising conversations. The application also includes adminstrative functionality, allowing privileged users to manage tasks such as adding new groups, deleting groups, modifying description and names of groups and much more. Development follows a git workflow, with frequent commits to demonstrate the project's progress from initial design through to full implementation.
 
 
 The branching strategy will follow GitFlow, using "main" and "develop" as the two core branches. The "main" branch will hold the finalised, submission-ready state of the project (including the report and documentation), while "develop" will act as the testing branch for ongoing work and upcoming features.
@@ -43,7 +43,7 @@ The below summarises the functional requirements for Fabulari, derived from the 
 | 18 | Users shall be able to send text messages and (PNG) image messages within a chat room they belong to. | No voice messages, GIFs, or other file types are supported. |
 | 19 | Users shall be able to see who else is currently present in a chat room, and receive a notification when someone joins or leaves. | Presence is scoped to the room the user is actively viewing. |
 | 20 | Users shall have a profile page, editable by themselves, including an optional profile photo. | All profile fields are editable except the email address, which is the account's unique identifier. Profiles are private and not viewable by other users. |
-| 21 | Messages shall display a timestamp and the sender's profile photo. | The client confirmed no reply/threading feature; editing or deleting a sent message was not explicitly addressed either way, so it is assumed unsupported for Phase 1, consistent with the fixed 5-message history model above. |
+| 21 | Messages shall display a timestamp and the sender's profile photo. | The client confirmed no reply/threading feature; editing or deleting a sent message was not explicitly addressed either way, so it is assumed unsupported, consistent with the fixed 5-message history model above. |
 | 22 | Users shall be able to leave a group at any time. | Leaving a group does not delete the user's account, only their membership of that group. |
 
 ### Group Admin
@@ -208,4 +208,85 @@ The tables below describe the data structures used to store and represent Fabula
 | targetId | string | Reference to the entity the action was performed on (user, group, etc.). |
 | details | string | Free-text summary of the action, for display in the audit log. |
 | timestamp | date | Time the action occurred; the log is filterable by type and ordered by this field. |
+
+
+## Proposed Angular Architecture
+
+Fabulari's front end will be an Angular application organised into feature folders (auth, chat, groups, settings, admin, shared), with a thin service layer handling all communication with the Node.js backend — either over HTTP for standard CRUD-style requests, or over a WebSocket connection for real-time chat. Route guards restrict access based on login state and a user's role (regular member, group admin of the current group, or super admin), matching the permission structure defined in the functional requirements above.
+
+### Models
+
+TypeScript interfaces mirroring the data structures defined above, used across services and components.
+
+| Model | Mirrors | Purpose |
+|---|---|---|
+| User | User | Logged-in user's profile and preferences. |
+| Group | Group, Group Role | A group, its metadata, and its member list. |
+| Room | Room | A chat room/channel within a group. |
+| Message | Message | A single chat message. |
+| GroupRequest | Group Request | A user's request to create a new group. |
+| RoomRequest | Room Request | A user's request to create a new room. |
+| JoinRequest | Join Request | A user's request to join a group. |
+| Report | Report | A report filed against a user. |
+| Ban | Ban | A group-level or system-level ban record. |
+| AuditLogEntry | Audit Log Entry | A single entry in the super admin's audit log. |
+
+### Services
+
+| Service | Responsibility |
+|---|---|
+| AuthService | Login, signup, logout, and holding the current user's session/auth token; exposes the logged-in user to the rest of the app. |
+| UserService | Fetching and updating the current user's profile, changing password, changing username, uploading a profile photo. |
+| GroupService | Listing all groups, fetching a single group's details, submitting a group creation request, submitting/cancelling a join request, leaving a group. |
+| RoomService | Listing rooms for a group, submitting a room creation request, editing room details (group admin). |
+| ChatSocketService | Wraps the WebSocket connection; joins/leaves a room, sends/receives messages, and emits presence (user joined/left) and notification events. |
+| RequestService | Fetching the current user's pending and past-rejected group/room requests. |
+| ReportService | Filing a report against a user, and listing reports (used by group admin/super admin views). |
+| GroupAdminService | Actions scoped to a group admin: approve/reject room and join requests, promote/demote members, ban a member, edit group metadata. |
+| SuperAdminService | Actions scoped to the super admin: approve/reject group requests, approve group deletion, ban/delete a user system-wide, fetch the audit log. |
+| ThemeService | Reading and persisting the user's light/dark mode preference, applying it at the app root. |
+
+### Components
+
+| Component | Feature Area | Purpose |
+|---|---|---|
+| LoginComponent | auth | Email/password login form. |
+| SignupComponent | auth | Registration form (email, username, password, date of birth). |
+| ChatLayoutComponent | chat | Top-level chat page; arranges the group list, room list, message panel, and group info panel. |
+| GroupListComponent | chat | Sidebar listing the groups the user belongs to, plus a "Find Groups" link. |
+| RoomListComponent | chat | Sidebar listing rooms within the selected group. |
+| MessagePanelComponent | chat | Displays messages for the selected room and the message input box. |
+| RoomMembersComponent | chat | Shows users currently present in the selected room. |
+| GroupInfoPanelComponent | chat | Displays/edits group description, age limit, and colour theme (edit only visible to a group admin). |
+| BrowseGroupsComponent | groups | Lists all groups in the system with a "Request to Join" action. |
+| GroupRequestFormComponent | groups | Modal/dialog for a user to submit a new group request (title, description, age limit, colour theme). |
+| RoomRequestFormComponent | groups | Modal/dialog for a user to propose a new room within a group. |
+| PendingRequestsComponent | groups | Lists the current user's pending and past-rejected group/room requests. |
+| ReportUserComponent | shared | Modal/dialog for a user to report another user, with a reason field. |
+| SettingsComponent | settings | Container for the profile and settings panels. |
+| ProfilePanelComponent | settings | Displays/edits profile photo, username, and email (read-only). |
+| ChangePasswordComponent | settings | Old password + new password (x2) form. |
+| ChangeUsernameComponent | settings | New username form. |
+| GroupAdminDashboardComponent | admin | Group admin's management view: pending room/join requests, member list, promote/demote, ban. |
+| SuperAdminDashboardComponent | admin | Super admin's management view: pending group requests, group deletion requests, user ban/delete, audit log. |
+| AuditLogComponent | admin | Filterable, date-ordered table of audit log entries (nested under the super admin dashboard). |
+| NavbarComponent | shared | App-wide navigation, including access to settings and (if applicable) the admin dashboard. |
+| ConfirmDialogComponent | shared | Reusable confirmation modal for destructive actions (e.g. leaving a group, banning a user). |
+
+### Routes
+
+| Path | Component | Guard | Notes |
+|---|---|---|---|
+| /login | LoginComponent | guestGuard | Redirects to /chat if already logged in. |
+| /signup | SignupComponent | guestGuard | Redirects to /chat if already logged in. |
+| /chat | ChatLayoutComponent | authGuard | Default landing page after login. |
+| /chat/:groupId/:roomId | ChatLayoutComponent | authGuard | Deep link to a specific room. |
+| /groups | BrowseGroupsComponent | authGuard | Browse/request to join a group. |
+| /requests | PendingRequestsComponent | authGuard | The current user's pending/rejected requests. |
+| /settings | SettingsComponent | authGuard | Profile and account settings. |
+| /settings/change-password | ChangePasswordComponent | authGuard | Nested under settings. |
+| /settings/change-username | ChangeUsernameComponent | authGuard | Nested under settings. |
+| /admin/group/:groupId | GroupAdminDashboardComponent | groupAdminGuard | Only accessible to that group's admin(s). |
+| /admin/super | SuperAdminDashboardComponent | superAdminGuard | Only accessible to the single super admin account. |
+| ** (wildcard) | — | — | Redirects to /chat if logged in, otherwise /login. |
 
