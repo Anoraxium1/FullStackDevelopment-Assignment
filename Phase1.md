@@ -292,7 +292,7 @@ TypeScript interfaces mirroring the data structures defined above, used across s
 
 ## Proposed Server Endpoints
 
-The tables below list the REST endpoints Fabulari's Node.js backend is expected to expose, grouped by resource and mapped to the data structures and functional requirements defined above. Real-time messaging and presence run over a WebSocket connection rather than REST, listed separately at the end. Not every endpoint needs to exist for an initial build — this is a proposed surface to design and implement against as the app is built out.
+The tables below list the REST endpoints Fabulari's Node.js backend is expected to expose, grouped by resource and mapped to the data structures and functional requirements defined above. Real-time messaging and presence run over a WebSocket connection rather than REST, listed separately at the end.
 
 ### Auth
 
@@ -381,3 +381,11 @@ The tables below list the REST endpoints Fabulari's Node.js backend is expected 
 | presence:left | Server → Client | Notify the room that a user has left. |
 | notification | Server → Client | Push a notification to a user (e.g. their request was approved/rejected). |
 
+<br>
+
+1. Explain each one — a sentence or two per wireframe describing what it shows and which functional requirements it satisfies, and ideally present them in a sequence (login → signup → chat → settings, etc.) so it reads as a storyboard of the user's journey rather than a loose image dump.
+2. Address responsiveness explicitly — right now every wireframe is a single fixed desktop layout. "Storyboards using a responsive design methodology" implies showing (or at least describing) how the layout adapts — per your own FR-7, desktop is primary and tablet is a bonus, so at minimum the doc should state what collapses/stacks at a smaller breakpoint (e.g. the groups/rooms sidebars collapsing behind a menu button on tablet, which the chat wireframe's hamburger icon already hints at).
+
+![Login Wireframe](Images/3813ICT-Assignment-Login-Page-Wireframe.png)
+
+![Login Wireframe](Images/3813ICT-Assignment-Signup-Page-Wireframe.png)
