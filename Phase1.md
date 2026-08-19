@@ -73,3 +73,139 @@ The below summarises the functional requirements for Fabulari, derived from the 
 | 38 | The super admin shall be able to permanently ban/delete a user from the system, acting on a group admin's request. | If the user being removed is a group admin, a replacement admin must be assigned first so their group is never left without one. |
 | 39 | The super admin shall have access to an audit log of system actions (group creation/deletion, bans, deletions, etc.), filterable by type and ordered by date. | Provides accountability/traceability for all privileged actions taken in the system. |
 | 40 | The super admin shall not be able to send direct messages to regular users. | The super admin role is administrative only and does not participate in chat. |
+
+
+## Data Structures
+
+The tables below describe the data structures used to store and represent Fabulari's data, based on the entities implied by the functional requirements above (Users, Groups, Rooms, Messages, and the various request/moderation records). Group membership and admin status are stored as a role on the membership record rather than as a separate field on the user, since a user can be a member of many groups and hold a different role in each.
+
+### User
+
+| Field | Type | Description |
+|---|---|---|
+| id | string | Unique identifier for the user. |
+| email | string | Unique login identifier; cannot be changed after registration. |
+| username | string | Display name, editable by the user. |
+| passwordHash | string | Hashed password, never stored or transmitted in plain text. |
+| dateOfBirth | date | Used to calculate age against a group's age limit. |
+| profilePhoto | string | Path/URL to the user's profile image; optional. |
+| theme | string | UI display preference, "light" or "dark". |
+| isSuperAdmin | boolean | True only for the single super admin account. |
+| createdAt | date | Timestamp the account was created. |
+
+### Group
+
+| Field | Type | Description |
+|---|---|---|
+| id | string | Unique identifier for the group. |
+| name | string | Group name, set at creation and immutable afterwards. |
+| description | string | Editable description of the group. |
+| ageLimit | number | Minimum age required to join the group. |
+| colourTheme | string | Colour theme applied to the group and cascaded to its rooms. |
+| members | array of Membership | Current members and their role (see Membership below). |
+| bannedUserIds | array of string | Users permanently banned from this specific group. |
+| createdAt | date | Timestamp the group was created. |
+
+### Group Role
+
+| Field | Type | Description |
+|---|---|---|
+| userId | string | Reference to the User. |
+| role | string | "admin" or "member" within this group. |
+| joinedAt | date | Timestamp the user joined the group. |
+
+### Room
+
+| Field | Type | Description |
+|---|---|---|
+| id | string | Unique identifier for the room/channel. |
+| groupId | string | Reference to the parent Group. |
+| name | string | Room name; editable by a group admin. |
+| description | string | Editable description of the room. |
+| createdAt | date | Timestamp the room was created. |
+
+### Message
+
+| Field | Type | Description |
+|---|---|---|
+| id | string | Unique identifier for the message. |
+| roomId | string | Reference to the Room the message was sent in. |
+| senderId | string | Reference to the User who sent the message. |
+| type | string | "text" or "image". |
+| content | string | The message text, or the path/URL of the attached PNG image. |
+| timestamp | date | Time the message was sent. |
+
+### Group Request
+
+| Field | Type | Description |
+|---|---|---|
+| id | string | Unique identifier for the request. |
+| requestedBy | string | Reference to the User who submitted the request. |
+| title | string | Proposed group name. |
+| description | string | Proposed group description. |
+| ageLimit | number | Proposed minimum age. |
+| colourTheme | string | Proposed colour theme. |
+| status | string | "pending", "approved", or "rejected". |
+| reviewedBy | string | Reference to the super admin who actioned the request. |
+| createdAt | date | Timestamp the request was submitted. |
+
+### Room Request
+
+| Field | Type | Description |
+|---|---|---|
+| id | string | Unique identifier for the request. |
+| groupId | string | Reference to the Group the room is proposed in. |
+| requestedBy | string | Reference to the User who submitted the request. |
+| name | string | Proposed room name. |
+| description | string | Proposed room description. |
+| status | string | "pending", "approved", or "rejected". |
+| rejectionReason | string | Reason given by the group admin, required if rejected. |
+| reviewedBy | string | Reference to the group admin who actioned the request. |
+| createdAt | date | Timestamp the request was submitted. |
+
+### Join Request
+
+| Field | Type | Description |
+|---|---|---|
+| id | string | Unique identifier for the request. |
+| groupId | string | Reference to the Group being requested to join. |
+| userId | string | Reference to the User requesting to join. |
+| status | string | "pending", "approved", or "rejected". |
+| reviewedBy | string | Reference to the group admin who actioned the request (or null if auto-rejected for age). |
+| createdAt | date | Timestamp the request was submitted. |
+
+### Report
+
+| Field | Type | Description |
+|---|---|---|
+| id | string | Unique identifier for the report. |
+| reportedUserId | string | Reference to the User being reported. |
+| reportedBy | string | Reference to the User who filed the report. |
+| groupId | string | Reference to the Group the report relates to; null for a system-wide report. |
+| reason | string | Explanation provided by the reporting user. |
+| status | string | "pending", "actioned", or "dismissed". |
+| createdAt | date | Timestamp the report was filed. |
+
+### Ban
+
+| Field | Type | Description |
+|---|---|---|
+| id | string | Unique identifier for the ban. |
+| userId | string | Reference to the banned User. |
+| scope | string | "group" (banned from one Group) or "system" (permanently removed from Fabulari). |
+| groupId | string | Reference to the Group, if scope is "group". |
+| reportId | string | Reference to the Report the ban was actioned from. |
+| issuedBy | string | Reference to the admin (group admin or super admin) who issued the ban. |
+| createdAt | date | Timestamp the ban was issued. |
+
+### Audit Log Entry
+
+| Field | Type | Description |
+|---|---|---|
+| id | string | Unique identifier for the log entry. |
+| type | string | Action type, e.g. "GROUP_CREATED", "GROUP_DELETED", "USER_BANNED", "ROOM_APPROVED". |
+| actorId | string | Reference to the super admin who performed the action. |
+| targetId | string | Reference to the entity the action was performed on (user, group, etc.). |
+| details | string | Free-text summary of the action, for display in the audit log. |
+| timestamp | date | Time the action occurred; the log is filterable by type and ordered by this field. |
+
