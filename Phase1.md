@@ -4,11 +4,13 @@ Fabulari is a real-time chat application developed as part of the 3813ICT assign
 
 The branching strategy will follow GitFlow, using "main" and "develop" as the two core branches. The "main" branch will hold the finalised, submission-ready state of the project (including the report and documentation), while "develop" will act as the testing branch for ongoing work and upcoming features.
 
-Commit messages will follow a short, descriptive convention, starting with a past-tense verb (e.g. "Added", "Fixed", "Updated", "Changed") followed by a concise summary of what the commit does, so that the project history can be scanned to understand progress without needing to inspect the diff of every commit. Commits will be kept small and frequent, with each one representing a single logical change (such as adding a feature, fixing a bug, or updating documentation), rather than bundling multiple unrelated changes together. This keeps the commit history easy to follow and makes it straightforward to track how the project evolved across both phases.
+Commit messages will contain a concise summary of what the commit does, so that the project history can be easily read to understand progress without needing to interpret commit messages. Commits will be kept small and frequent, with each commit representing a single logical change such as adding a feature, fixing a bug, or updating documentation, rather than bundling multiple unrelated changes together.
 
-## Specifications and Assumptions (Functional Requirements)
 
-The tables below summarise the functional requirements for Fabulari, derived from the client Q&A session, alongside the assumptions made where the specification was ambiguous, contradictory, or left to developer discretion.
+Specifications and Assumptions (Functional Requirements)
+
+The below summarises the functional requirements for Fabulari, derived from the client Q&A session, alongside the assumptions made where the specification was unclear, or left to developer choice.
+
 
 ### System / General
 
