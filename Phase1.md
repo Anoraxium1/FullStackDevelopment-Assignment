@@ -290,3 +290,94 @@ TypeScript interfaces mirroring the data structures defined above, used across s
 | /admin/super | SuperAdminDashboardComponent | superAdminGuard | Only accessible to the single super admin account. |
 | ** (wildcard) | — | — | Redirects to /chat if logged in, otherwise /login. |
 
+## Proposed Server Endpoints
+
+The tables below list the REST endpoints Fabulari's Node.js backend is expected to expose, grouped by resource and mapped to the data structures and functional requirements defined above. Real-time messaging and presence run over a WebSocket connection rather than REST, listed separately at the end. Not every endpoint needs to exist for an initial build — this is a proposed surface to design and implement against as the app is built out.
+
+### Auth
+
+| Method | Endpoint | Description | Access |
+|---|---|---|---|
+| POST | /api/auth/signup | Register a new user account. | Public |
+| POST | /api/auth/login | Authenticate and start a session. | Public |
+| POST | /api/auth/logout | End the current session. | Logged-in user |
+
+### Users
+
+| Method | Endpoint | Description | Access |
+|---|---|---|---|
+| GET | /api/users/me | Fetch the current user's profile. | Logged-in user |
+| PUT | /api/users/me | Update username and/or profile photo. | Logged-in user |
+| PUT | /api/users/me/password | Change password (old password + new password twice). | Logged-in user |
+| PUT | /api/users/me/theme | Update light/dark mode preference. | Logged-in user |
+
+### Groups
+
+| Method | Endpoint | Description | Access |
+|---|---|---|---|
+| GET | /api/groups | List all groups in the system. | Logged-in user |
+| GET | /api/groups/:groupId | Fetch a single group's details, including its members. | Logged-in user |
+| PUT | /api/groups/:groupId | Edit a group's description, age limit, or colour theme. | Group admin |
+| POST | /api/groups/:groupId/join-requests | Request to join a group (auto-rejected server-side if under the age limit). | Logged-in user |
+| DELETE | /api/groups/:groupId/membership | Leave a group. | Group member |
+| POST | /api/groups/:groupId/delete-requests | Request that the super admin delete the group. | Group admin |
+| GET | /api/groups/:groupId/members | List current and banned members of the group. | Group admin |
+| PUT | /api/groups/:groupId/members/:userId/role | Promote or demote a member's admin status. | Group admin |
+| POST | /api/groups/:groupId/members/:userId/ban | Ban a member from the group (requires an associated report). | Group admin |
+
+### Rooms
+
+| Method | Endpoint | Description | Access |
+|---|---|---|---|
+| GET | /api/groups/:groupId/rooms | List rooms within a group. | Group member |
+| PUT | /api/groups/:groupId/rooms/:roomId | Edit a room's name or description. | Group admin |
+| POST | /api/groups/:groupId/room-requests | Propose a new room within the group. | Group member |
+| GET | /api/groups/:groupId/room-requests | List pending room requests for the group. | Group admin |
+| PUT | /api/groups/:groupId/room-requests/:requestId | Approve or reject a room request (rejection requires a reason). | Group admin |
+
+### Messages
+
+| Method | Endpoint | Description | Access |
+|---|---|---|---|
+| GET | /api/rooms/:roomId/messages | Fetch the last 5 stored messages for a room (shown when a user (re)joins). | Room member |
+
+### Requests
+
+| Method | Endpoint | Description | Access |
+|---|---|---|---|
+| POST | /api/group-requests | Submit a request to create a new group (title, description, age limit, colour theme). | Logged-in user |
+| GET | /api/group-requests/mine | List the current user's pending/rejected group requests. | Logged-in user |
+| GET | /api/room-requests/mine | List the current user's pending/rejected room requests. | Logged-in user |
+
+### Reports
+
+| Method | Endpoint | Description | Access |
+|---|---|---|---|
+| POST | /api/reports | File a report against another user, with a reason. | Logged-in user |
+| GET | /api/groups/:groupId/reports | List reports filed within a group. | Group admin |
+
+### Super Admin
+
+| Method | Endpoint | Description | Access |
+|---|---|---|---|
+| GET | /api/admin/group-requests | List pending group creation requests. | Super admin |
+| PUT | /api/admin/group-requests/:requestId | Approve (creates the group) or reject a group request. | Super admin |
+| GET | /api/admin/group-delete-requests | List pending group deletion requests. | Super admin |
+| PUT | /api/admin/group-delete-requests/:requestId | Approve or reject a group deletion request. | Super admin |
+| POST | /api/admin/users/:userId/ban | Permanently ban/delete a user from the system. | Super admin |
+| GET | /api/admin/users | List all users, including system-banned accounts. | Super admin |
+| GET | /api/admin/audit-log | Fetch the audit log, filterable by type and ordered by date. | Super admin |
+
+### WebSocket Events
+
+| Event | Direction | Description |
+|---|---|---|
+| room:join | Client → Server | Join a room to receive its live messages and presence updates. |
+| room:leave | Client → Server | Leave a room. |
+| message:send | Client → Server | Send a text or image message to the currently joined room. |
+| message:new | Server → Client | Broadcast a new message to everyone in the room. |
+| presence:update | Server → Client | Current list of users present in the room. |
+| presence:joined | Server → Client | Notify the room that a user has joined. |
+| presence:left | Server → Client | Notify the room that a user has left. |
+| notification | Server → Client | Push a notification to a user (e.g. their request was approved/rejected). |
+
