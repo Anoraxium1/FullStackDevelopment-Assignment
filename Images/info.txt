@@ -6,6 +6,7 @@ Fixes to existing wireframes:
 - chat page needs a visual badge/indicator on messages from the group admin
 - settings page: decide if the Profile panel (email/username/password rows) should link to the change pages, or is just a display, currently duplicates the Settings panel buttons
 - combine the wireframes for change password and change username into one page for edit
+- add members list in the groups
 
 New wireframes needed:
 - group admin dashboard
