@@ -1,15 +1,5 @@
-.logo-box {
-  max-width: 400px;
-  margin: 2rem auto 1.5rem;
-  padding: 1.5rem;
-  border-radius: 8px;
-  background: #e9ecef;
-  font-weight: 700;
-  letter-spacing: 2px;
-  text-align: center;
-}
-
 .auth-card {
+  width: 90%;
   max-width: 400px;
   margin: 0 auto;
   padding: 1rem;

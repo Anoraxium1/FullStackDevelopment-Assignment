@@ -1,27 +1,30 @@
 .chat-shell {
-  display: flex;
-  gap: 0.75rem;
   text-align: left;
-  align-items: flex-start;
-}
-
-.chat-card {
-  max-width: 1100px;
-  margin: 2rem auto;
-  padding: 1rem;
+  position: relative;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
+.card-body {
+  display: flex;
+  gap: 0.75rem;
+  align-items: stretch;
+}
+
 .groups-col, .rooms-col, .info-col {
-  min-width: 160px;
+  width: 8vw;
+  min-width: 110px;
+  flex-shrink: 0;
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
+  margin-top: 3.25rem;
 }
 
 .messages-col {
   flex: 1;
   min-width: 0;
+  display: flex;
+  flex-direction: column;
 }
 
 .panel-title {
@@ -35,14 +38,12 @@
 .group-name-bar {
   display: flex;
   justify-content: center;
-  position: relative;
 }
 
 .settings {
   position: absolute;
-  right: 0.5rem;
-  top: 50%;
-  transform: translateY(-50%);
+  top: 0.75rem;
+  right: 0.75rem;
   background: none;
   border: none;
   font-size: 1.25rem;
@@ -71,35 +72,8 @@
   border: 2px solid #333;
   border-radius: 8px;
   padding: 0.75rem;
-  min-height: 300px;
+  height: 50vh;
   margin-top: 0.5rem;
-}
-
-.message-row {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  padding: 0.5rem;
-  margin-bottom: 0.5rem;
-}
-
-.avatar {
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  border: 2px solid #333;
-  display: inline-block;
-}
-
-.message-text {
-  flex: 1;
-}
-
-.message-time {
-  font-size: 0.75rem;
-  color: #666;
 }
 
 .message-input-row {
@@ -112,6 +86,27 @@
   border: 2px solid #333;
   border-radius: 8px;
   padding: 1rem;
-  min-height: 200px;
+  height: 40vh;
   text-align: center;
+}
+
+@media (max-width: 900px) {
+  .groups-col, .rooms-col, .info-col {
+    width: 12vw;
+    min-width: 80px;
+    margin-top: 2.5rem;
+  }
+
+  .card-body {
+    gap: 0.4rem;
+  }
+
+  .list-btn, .panel-title {
+    padding: 0.35rem;
+    font-size: 0.85rem;
+  }
+
+  .messages-list, .info-box {
+    height: 30vh;
+  }
 }
