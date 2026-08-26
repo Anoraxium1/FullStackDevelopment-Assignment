@@ -1,9 +1,17 @@
 import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { RouterLink } from '@angular/router';
 
 @Component({
-  imports: [],
   selector: 'app-change-password',
-  styleUrl: './change-password.css',
+  imports: [FormsModule, RouterLink],
   templateUrl: './change-password.html',
+  styleUrl: './change-password.css',
 })
-export class ChangePassword {}
+export class ChangePassword {
+  protected currentPassword = '';
+  protected password = '';
+  protected confirmPassword = '';
+
+  onSubmit() {}
+}
