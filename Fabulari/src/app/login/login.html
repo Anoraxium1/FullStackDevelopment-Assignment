@@ -1,0 +1,29 @@
+<h1 class="mb-4">{{ isLogin() ? 'Login' : 'Sign Up' }}</h1>
+
+<div class="card profile-card">
+  <div class="card-body">
+    <div class="btn-group w-100 mb-3" role="group">
+      <button type="button" class="btn" [class.btn-primary]="isLogin()" [class.btn-outline-primary]="!isLogin()" (click)="setMode(true)">Login</button>
+      <button type="button" class="btn" [class.btn-primary]="!isLogin()" [class.btn-outline-primary]="isLogin()" (click)="setMode(false)">Sign Up</button>
+    </div>
+    <form (ngSubmit)="onSubmit()">
+      <div class="mb-3 text-start">
+        <label for="exampleInputEmail1" class="form-label">Email address</label>
+        <input type="email" class="form-control" id="exampleInputEmail1" name="email" [(ngModel)]="email" aria-describedby="emailHelp">
+        <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+      </div>
+      <div class="mb-3 text-start">
+        <label for="exampleInputPassword1" class="form-label">Password</label>
+        <input [type]="showPassword() ? 'text' : 'password'" class="form-control" id="exampleInputPassword1" name="password" [(ngModel)]="password">
+      </div>
+      <div class="mb-3 form-check text-start">
+        <input type="checkbox" class="form-check-input" id="exampleCheck1" (change)="togglePasswordVisibility()">
+        <label class="form-check-label" for="exampleCheck1">Show password</label>
+      </div>
+      @if (errorMessage()) {
+        <div class="alert alert-danger" role="alert">{{ errorMessage() }}</div>
+      }
+      <button type="submit" class="btn btn-primary w-100">{{ isLogin() ? 'Login' : 'Sign Up' }}</button>
+    </form>
+  </div>
+</div>
