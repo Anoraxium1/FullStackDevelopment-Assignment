@@ -1,0 +1,60 @@
+<h1 class="text-center my-4">Chat</h1>
+
+<div class="chat-shell">
+   <aside class="groups-col">
+    <div class="panel-title">Groups</div>
+    @for (group of groups(); track group.id) {
+      <button type="button" class="list-btn" [class.selected]="selectedGroup().id === group.id" (click)="selectGroup(group)">
+        {{ group.name }}
+      </button>
+    }
+    <button type="button" class="list-btn find-groups">Find Groups</button>
+  </aside>
+
+  <aside class="rooms-col">
+    <div class="panel-title">Rooms</div>
+    @for (room of rooms(); track room.id) {
+      <button type="button" class="list-btn" [class.selected]="selectedRoom().id === room.id" (click)="selectRoom(room)">
+        {{ room.name }}
+      </button>
+    }
+  </aside>
+
+  <main class="messages-col">
+    <div class="panel-title group-name-bar">
+      {{ selectedGroup().name }}
+      <button type="button" class="hamburger" (click)="toggleSidebars()">&#9776;</button>
+    </div>
+
+    <div class="messages-list">
+      @for (message of messages(); track message.id) {
+        <div class="message-row">
+          <span class="avatar"></span>
+          <span class="message-text">{{ message.text }}</span>
+          <span class="message-time">{{ message.time }}</span>
+        </div>
+      }
+    </div>
+
+    <form class="message-input-row" (ngSubmit)="sendMessage()">
+      <input type="text" class="form-control" name="newMessage" placeholder="Users Message" [(ngModel)]="newMessage">
+      <button type="submit" class="btn btn-outline-dark">&gt;</button>
+    </form>
+  </main>
+
+  <aside class="info-col">
+    <button type="button" class="list-btn" [class.selected]="infoTab() === 'info'" (click)="setInfoTab('info')">Group Info</button>
+    <button type="button" class="list-btn" [class.selected]="infoTab() === 'age'" (click)="setInfoTab('age')">Age Limit</button>
+    <button type="button" class="list-btn" [class.selected]="infoTab() === 'colour'" (click)="setInfoTab('colour')">Colour Theme</button>
+
+    <div class="info-box">
+      @if (infoTab() === 'info') {
+        {{ selectedGroup().description }}
+      } @else if (infoTab() === 'age') {
+        Minimum age: {{ selectedGroup().ageLimit }}
+      } @else {
+        Colour theme: {{ selectedGroup().colourTheme }}
+      }
+    </div>
+  </aside>
+</div>
