@@ -3,13 +3,15 @@ import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 
 @Component({
-  selector: 'app-login',
+  selector: 'app-signup',
   imports: [FormsModule, RouterLink],
-  templateUrl: './login.html',
-  styleUrl: './login.css',
+  templateUrl: './signup.html',
+  styleUrl: './signup.css',
 })
-export class Login {
+export class Signup {
   protected email = '';
+  protected username = '';
+  protected dob = '';
   protected password = '';
 
   onSubmit() {}

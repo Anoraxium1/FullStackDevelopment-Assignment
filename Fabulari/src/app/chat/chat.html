@@ -1,60 +1,43 @@
-<h1 class="text-center my-4">Chat</h1>
-
 <div class="chat-shell">
-   <aside class="groups-col">
+  <aside class="groups-col">
     <div class="panel-title">Groups</div>
-    @for (group of groups(); track group.id) {
-      <button type="button" class="list-btn" [class.selected]="selectedGroup().id === group.id" (click)="selectGroup(group)">
-        {{ group.name }}
-      </button>
-    }
+    <button type="button" class="list-btn">Group 1 Name</button>
+    <button type="button" class="list-btn">Group 2 Name</button>
+    <button type="button" class="list-btn">Group 3 Name</button>
+    <button type="button" class="list-btn">Group 4 Name</button>
+    <button type="button" class="list-btn">Group 5 Name</button>
+    <button type="button" class="list-btn">Group 6 Name</button>
     <button type="button" class="list-btn find-groups">Find Groups</button>
   </aside>
 
   <aside class="rooms-col">
     <div class="panel-title">Rooms</div>
-    @for (room of rooms(); track room.id) {
-      <button type="button" class="list-btn" [class.selected]="selectedRoom().id === room.id" (click)="selectRoom(room)">
-        {{ room.name }}
-      </button>
-    }
+    <button type="button" class="list-btn selected">Room 1</button>
+    <button type="button" class="list-btn">Room 2</button>
+    <button type="button" class="list-btn">Room 3</button>
+    <button type="button" class="list-btn">Room 4</button>
+    <button type="button" class="list-btn">Room 5</button>
   </aside>
 
   <main class="messages-col">
     <div class="panel-title group-name-bar">
-      {{ selectedGroup().name }}
-      <button type="button" class="hamburger" (click)="toggleSidebars()">&#9776;</button>
+      Group Name
+      <button type="button" class="hamburger">&#9776;</button>
     </div>
 
-    <div class="messages-list">
-      @for (message of messages(); track message.id) {
-        <div class="message-row">
-          <span class="avatar"></span>
-          <span class="message-text">{{ message.text }}</span>
-          <span class="message-time">{{ message.time }}</span>
-        </div>
-      }
-    </div>
+    <div class="messages-list"></div>
 
-    <form class="message-input-row" (ngSubmit)="sendMessage()">
-      <input type="text" class="form-control" name="newMessage" placeholder="Users Message" [(ngModel)]="newMessage">
+    <form class="message-input-row">
+      <input type="text" class="form-control" placeholder="Users Message">
       <button type="submit" class="btn btn-outline-dark">&gt;</button>
     </form>
   </main>
 
   <aside class="info-col">
-    <button type="button" class="list-btn" [class.selected]="infoTab() === 'info'" (click)="setInfoTab('info')">Group Info</button>
-    <button type="button" class="list-btn" [class.selected]="infoTab() === 'age'" (click)="setInfoTab('age')">Age Limit</button>
-    <button type="button" class="list-btn" [class.selected]="infoTab() === 'colour'" (click)="setInfoTab('colour')">Colour Theme</button>
+    <button type="button" class="list-btn">Group Info</button>
+    <button type="button" class="list-btn">Age Limit</button>
+    <button type="button" class="list-btn">Colour Theme</button>
 
-    <div class="info-box">
-      @if (infoTab() === 'info') {
-        {{ selectedGroup().description }}
-      } @else if (infoTab() === 'age') {
-        Minimum age: {{ selectedGroup().ageLimit }}
-      } @else {
-        Colour theme: {{ selectedGroup().colourTheme }}
-      }
-    </div>
+    <div class="info-box">Group Description</div>
   </aside>
 </div>
