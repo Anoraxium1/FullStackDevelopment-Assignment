@@ -1,0 +1,37 @@
+<div class="top-bar">
+  <button type="button" class="back-btn" routerLink="/chat">&lt;</button>
+</div>
+
+<div class="settings-shell">
+  <div class="card profile-panel">
+    <div class="card-body">
+      <div class="panel-title">Profile</div>
+      <div class="avatar-large"></div>
+      <div class="field-box">Email</div>
+      <div class="field-box">Username</div>
+      <div class="field-box">Password</div>
+    </div>
+  </div>
+
+  <div class="card settings-panel">
+    <div class="card-body">
+      <div class="panel-title">Settings</div>
+      <div class="settings-row">
+        <span>Switch to Dark/Light Mode</span>
+        <input type="checkbox" [checked]="darkMode()" (change)="toggleTheme()">
+      </div>
+      <button type="button" class="settings-row" routerLink="/change-password">
+        <span>Change Password</span>
+        <span>&gt;</span>
+      </button>
+      <button type="button" class="settings-row" routerLink="/change-username">
+        <span>Change Username</span>
+        <span>&gt;</span>
+      </button>
+      <button type="button" class="settings-row">
+        <span>Submit Report</span>
+        <span>&gt;</span>
+      </button>
+    </div>
+  </div>
+</div>

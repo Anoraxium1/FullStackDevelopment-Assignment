@@ -1,0 +1,63 @@
+.top-bar {
+  display: flex;
+  justify-content: flex-end;
+  max-width: 700px;
+  margin: 1rem auto;
+}
+
+.back-btn {
+  border: 2px solid #333;
+  border-radius: 8px;
+  background: #f1f1f1;
+  padding: 0.25rem 0.75rem;
+  cursor: pointer;
+}
+
+.settings-shell {
+  display: flex;
+  gap: 1rem;
+  max-width: 700px;
+  margin: 0 auto;
+  align-items: flex-start;
+}
+
+.profile-panel, .settings-panel {
+  flex: 1;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+}
+
+.panel-title {
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.avatar-large {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  border: 2px solid #333;
+  margin: 0 auto 1rem;
+}
+
+.field-box {
+  border: 2px solid #333;
+  border-radius: 8px;
+  padding: 0.5rem;
+  text-align: center;
+  margin-bottom: 0.5rem;
+}
+
+.settings-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border: 2px solid #333;
+  border-radius: 8px;
+  padding: 0.5rem 0.75rem;
+  margin-bottom: 0.75rem;
+  width: 100%;
+  background: #f1f1f1;
+  cursor: pointer;
+}
