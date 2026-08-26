@@ -383,10 +383,50 @@ The tables below list the REST endpoints Fabulari's Node.js backend is expected 
 
 <br>
 
-1. Explain each one — a sentence or two per wireframe describing what it shows and which functional requirements it satisfies, and ideally present them in a sequence (login → signup → chat → settings, etc.) so it reads as a storyboard of the user's journey rather than a loose image dump.
+## Design Documents (Wireframes)
 
-2. Address responsiveness explicitly — right now every wireframe is a single fixed desktop layout. "Storyboards using a responsive design methodology" implies showing (or at least describing) how the layout adapts — per your own FR-7, desktop is primary and tablet is a bonus, so at minimum the doc should state what collapses/stacks at a smaller breakpoint (e.g. the groups/rooms sidebars collapsing behind a menu button on tablet, which the chat wireframe's hamburger icon already hints at).
+### 1. Login
 
 ![Login Wireframe](Images/3813ICT-Assignment-Login-Page-Wireframe.png)
 
-![Login Wireframe](Images/3813ICT-Assignment-Signup-Page-Wireframe.png)
+This is the login page of the app, this is where the user enters their email and password and presses Submit to authenticate; the Signup button routes a new user across to the registration page instead. This satisfies the requirement for basic username/password authentication, and is the gate that every other functional requirement sits behind.
+
+### 2. Signup
+
+![Signup Wireframe](Images/3813ICT-Assignment-Signup-Page-Wireframe.png)
+
+This is the signup page, this is where a new user creates their account by entering their email, username, date of birth, and password (FR-2). The date of birth is asked for here so it can be checked against a group's age limit later on (FR-13). The password gets hashed on the server before it's stored (FR-3), which you can't really see in the wireframe but is what happens once Submit is pressed. The Login button just sends an existing user back to the login page instead.
+
+### 3. Chat
+
+![Chat Wireframe](Images/3813ICT-Assignment-Chat-Page-Wireframe.png)
+
+This is the chat page, this is where the user spends most of their time once they're logged in. On the left is the list of groups the user is in, with a Find Groups button at the bottom that takes them to the Groups page (FR-12). Next to that is the list of rooms inside whichever group is selected (FR-16). The middle panel shows the messages in the selected room, each with a timestamp and the sender's photo (FR-11, FR-21), plus a box at the bottom to type and send a new message (FR-1, FR-18). On the right, a group admin can view and edit the group's description, age limit and colour theme (FR-23, FR-24). The hamburger icon in the corner is for the responsive sidebar toggle explained below, and this page still needs the room member list (FR-19) and an admin badge on messages (FR-34) added, as noted in Images/info.txt.
+
+### 4. Groups
+
+![Groups Wireframe](Images/3813ICT-Assignment-Groups-Page-Wireframe.png)
+
+This is the groups page, this is where the user can see every group that exists in the system (FR-12). Each group has an Apply button next to it so the user can request to join (FR-13), and the request gets rejected automatically if they don't meet the group's age limit. The back arrow in the corner just takes them back to the chat page.
+
+### 5. Settings
+
+![Settings Wireframe](Images/3813ICT-Assignment-Settings-Page-Wireframe.png)
+
+This is the settings page, this is where the user manages their account. It's split into a Profile panel on the left showing their photo, email, username and password (FR-20), and a Settings panel on the right with the actual controls. The Dark/Light Mode switch is FR-6. Change Password and Change Username both open their own separate pages rather than being editable right there, and Submit Report is where a user reports someone else, which is the step a group admin needs before they can ban that person.
+
+### 6. Change Password
+
+![Change Password Wireframe](Images/3813ICT-Assignment-Change-Password-Page-Wireframe.png)
+
+This is the change password page, this is where FR-4 happens: the user types their current password once, then their new password twice, and the server checks the current password is correct and that the two new entries match before it updates anything. The Back button just returns to settings without saving.
+
+### 7. Change Username
+
+![Change Username Wireframe](Images/3813ICT-Assignment-Change-Username-Page-Wireframe.png)
+
+This is the change username page, this is where the user updates their username, one of the profile fields the client confirmed can be changed (FR-20). It's kept as its own page rather than an inline edit, the same way Change Password is.
+
+### Responsiveness
+
+Desktop is the primary target and tablet is a bonus, per FR-7. The layout most affected by a smaller viewport is Chat, since it is the only page built from four side-by-side columns. Below a tablet-width breakpoint, the Groups and Rooms sidebar columns collapse and are hidden by default, leaving just the message panel and the admin info panel; the hamburger icon in the Chat page's top corner toggles those sidebars back into view over the top of the message panel. The Settings page's two side-by-side panels (Profile and Settings) stack vertically instead of sitting side by side once the viewport is too narrow to fit both at a readable width. Login, Signup, Groups, Change Password and Change Username are already single-column layouts, so they don't need to adapt further beyond their max-width shrinking to fit the viewport.
