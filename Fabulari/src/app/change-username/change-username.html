@@ -1,1 +1,15 @@
-<p>change-username works!</p>
+<div class="card auth-card">
+  <div class="card-body">
+    <h1 class="auth-title">Change Username</h1>
+    <form (ngSubmit)="onSubmit()">
+      <div class="form-field">
+        <label for="newUsername" class="form-label">New Username</label>
+        <input type="text" class="form-control" id="newUsername" name="newUsername" [(ngModel)]="newUsername">
+      </div>
+      <div class="button-row">
+        <button type="button" class="btn btn-outline-dark">Submit</button>
+        <button type="submit" class="btn btn-outline-dark" routerLink="/settings">&lt; Back</button>
+      </div>
+    </form>
+  </div>
+</div>
