@@ -5,6 +5,7 @@ import { Chat } from './chat/chat';
 import { Settings } from './settings/settings';
 import { ChangePassword } from './change-password/change-password';
 import { ChangeUsername } from './change-username/change-username';
+import { ChangeBirthdate } from './change-birthdate/change-birthdate';
 
 export const routes: Routes = [
     { path: '', component: Login, title: 'Login' },
@@ -13,4 +14,5 @@ export const routes: Routes = [
     { path: 'settings', component: Settings, title: 'Settings' },
     { path: 'change-password', component: ChangePassword, title: 'Change Password' },
     { path: 'change-username', component: ChangeUsername, title: 'Change Username' },
+    { path: 'change-birthdate', component: ChangeBirthdate, title: 'Change Birthdate' },
 ];

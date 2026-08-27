@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 
@@ -9,10 +9,15 @@ import { RouterLink } from '@angular/router';
   styleUrl: './signup.css',
 })
 export class Signup {
+  protected readonly showPassword = signal(false);
   protected email = '';
   protected username = '';
   protected dob = '';
   protected password = '';
+
+  togglePasswordVisibility() {
+    this.showPassword.update((v) => !v);
+  }
 
   onSubmit() {}
 }

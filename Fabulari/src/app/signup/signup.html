@@ -16,7 +16,11 @@
       </div>
       <div class="form-field">
         <label for="password" class="form-label">Password</label>
-        <input type="password" class="form-control" id="password" name="password" [(ngModel)]="password">
+        <input [type]="showPassword() ? 'text' : 'password'" class="form-control" id="password" name="password" [(ngModel)]="password">
+      </div>
+      <div class="form-check text-start">
+        <input type="checkbox" class="form-check-input" id="visbility-check-box" (change)="togglePasswordVisibility()">
+        <label class="form-check-label" for="visbility-check-box">Show password</label>
       </div>
       <div class="button-row">
         <button type="button" class="btn btn-outline-dark" routerLink="/">Login</button>
