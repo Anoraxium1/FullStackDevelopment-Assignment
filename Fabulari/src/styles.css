@@ -27,3 +27,24 @@ body.dark-theme .form-control {
   color: #f1f1f1;
   border-color: #555;
 }
+
+body.dark-theme .list-btn.selected {
+  background: #1e4620;
+  border-color: #28a745;
+  color: #f1f1f1;
+}
+
+body.dark-theme .btn-outline-dark {
+  color: #f1f1f1;
+  border-color: #f1f1f1;
+}
+
+body.dark-theme .btn-outline-dark:hover {
+  color: #1a1a1a;
+  background-color: #f1f1f1;
+}
+
+body.dark-theme .form-control::placeholder {
+  color: #f1f1f1;
+  opacity: 1;
+}

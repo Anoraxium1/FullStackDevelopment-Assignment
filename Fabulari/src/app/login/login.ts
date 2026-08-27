@@ -30,6 +30,7 @@ export class Login {
       next: (response) => {
         if (response.valid) {
           this.errorMessage.set('');
+          localStorage.setItem('currentUser', JSON.stringify(response));
           this.router.navigateByUrl('/chat');
         } else {
           this.errorMessage.set('Invalid email or password');

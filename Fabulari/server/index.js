@@ -16,21 +16,22 @@ const users = [
 ];
 
 function initializeRoutes(app) {
-  app.post('/api/auth', (req, res) => {
-    const { email, password } = req.body;
+  app.post('/api/signup', (req, res) => {
+    const { email, username, birthdate, password } = req.body;
 
-    if (!email || !password) {
-      return res.status(400).json({ valid: false, message: 'Email and password are required' });
+    if (!email || !username || !password) {
+      return res.status(400).json({ valid: false, message: 'Email, username and password are required' });
     }
 
-    const user = users.find(u => u.email === email && u.password === password);
-
-    if (user) {
-      const { password, ...userDetails } = user;
-      res.json(userDetails);
-    } else {
-      res.json({ valid: false });
+    if (users.some(u => u.email === email)) {
+      return res.status(409).json({ valid: false, message: 'Email already registered' });
     }
+
+    const user = new User(email, username, birthdate, password, 'user', true);
+    users.push(user);
+
+    const { password: _pw, ...userDetails } = user;
+    res.json(userDetails);
   });
 }
 
