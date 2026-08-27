@@ -1,6 +1,13 @@
 import { Component, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
+interface currentUser {
+  email: string;
+  username: string;
+  birthdate: string;
+  role: string;
+}
+
 @Component({
   selector: 'app-settings',
   imports: [RouterLink],
@@ -10,6 +17,14 @@ import { RouterLink } from '@angular/router';
 export class Settings {
   protected readonly showPassword = signal(false);
   protected readonly darkMode = signal(localStorage.getItem('darkMode') === 'true');
+  protected readonly currentUser = signal<currentUser | null>(null);
+
+  ngOnInit() {
+    const stored = localStorage.getItem('currentUser');
+    if (stored) {
+      this.currentUser.set(JSON.parse(stored));
+    }
+  }
 
   toggleTheme() {
   this.darkMode.update((v) => !v);

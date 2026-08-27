@@ -1,6 +1,7 @@
-import { Component, signal } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { RouterLink } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
+import { Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-signup',
@@ -9,7 +10,11 @@ import { RouterLink } from '@angular/router';
   styleUrl: './signup.css',
 })
 export class Signup {
+  private readonly http = inject(HttpClient);
+  private readonly router = inject(Router);
+
   protected readonly showPassword = signal(false);
+  protected readonly errorMessage = signal('');
   protected email = '';
   protected username = '';
   protected dob = '';
@@ -19,5 +24,25 @@ export class Signup {
     this.showPassword.update((v) => !v);
   }
 
-  onSubmit() {}
+  onSubmit() {
+    this.http.post<any>('http://localhost:3000/api/signup', {
+      email: this.email,
+      username: this.username,
+      birthdate: this.dob,
+      password: this.password,
+    }).subscribe({
+      next: (response) => {
+        if (response.valid) {
+          this.errorMessage.set('');
+          localStorage.setItem('currentUser', JSON.stringify(response));
+          this.router.navigateByUrl('/chat');
+        } else {
+          this.errorMessage.set(response.message ?? 'Unable to sign up');
+        }
+      },
+      error: (err) => {
+        this.errorMessage.set(err.error?.message ?? 'Unable to reach the server.');
+      },
+    });
+  }
 }

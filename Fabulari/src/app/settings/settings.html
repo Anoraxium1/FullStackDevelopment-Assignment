@@ -7,17 +7,9 @@
     <div class="card-body">
       <div class="panel-title">Profile</div>
       <div class="avatar-large"></div>
-      <div class="field-box">Email</div>
-      <div class="field-box">Username</div>
-      <div class="field-box">Birthdate</div>
-       <div class="field-box">
-        <label for="password" class="form-label">Password</label>
-        <!--<input [type]="showPassword() ? 'text' : 'password'" class="form-control" id="password" name="password" [(ngModel)]="password">-->
-      </div>
-      <div class="form-check text-start">
-        <input type="checkbox" class="form-check-input" id="visbility-check-box" (change)="togglePasswordVisibility()">
-        <label class="form-check-label" for="visbility-check-box">Show password</label>
-      </div>
+      <div class="field-box">{{ currentUser()?.email }}</div>
+      <div class="field-box">{{ currentUser()?.username }}</div>
+      <div class="field-box">{{ currentUser()?.birthdate }}</div>
     </div>
   </div>
 
