@@ -1,0 +1,18 @@
+<div class="page-title-bar">
+    <span>Groups</span>
+    <button type="button" class="back-btn" routerLink="/chat">&lt;</button>
+</div>
+
+<div class="card groups-card">
+    <div class="card-body">
+        <div class="panel-title">Groups</div>
+        @for (group of groups(); track group.id) {
+            <div class="group-row">
+                <span class="group-name">{{ group.name }}</span>
+                <button type="button" class="btn btn-sm btn-outline-dark" [disabled]="hasApplied(group)" (click)="apply(group)">
+                    {{ hasApplied(group) ? 'Applied' : 'Apply' }}
+                </button>
+            </div>
+        }
+    </div>
+</div>

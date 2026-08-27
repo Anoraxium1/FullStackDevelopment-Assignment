@@ -7,6 +7,7 @@ import { ChangePassword } from './change-password/change-password';
 import { ChangeUsername } from './change-username/change-username';
 import { ChangeBirthdate } from './change-birthdate/change-birthdate';
 import { Report } from './report/report';
+import { Groups } from './groups/groups';
 
 export const routes: Routes = [
     { path: '', component: Login, title: 'Login' },
@@ -17,4 +18,5 @@ export const routes: Routes = [
     { path: 'change-username', component: ChangeUsername, title: 'Change Username' },
     { path: 'change-birthdate', component: ChangeBirthdate, title: 'Change Birthdate' },
     { path: 'report', component: Report, title: 'Report' },
+    { path: 'groups', component: Groups, title: 'Groups' },
 ];

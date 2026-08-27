@@ -1,6 +1,6 @@
 <div class="chat-shell card chat-card">
   
-  <button type="button" class="logout" routerLink="/">Logout</button>
+  <button type="button" class="logout" (click)="logout()">Logout</button>
   <button type="button" class="settings" routerLink="/settings">&#9776;</button>
   
   <div class="panel-title group-name-bar">Group Name</div>
@@ -24,7 +24,7 @@
         <button type="button" class="list-btn" [class.selected]="selectedGroup() === 4" (click)="selectGroup(4)">Group 4 Name</button>
         <button type="button" class="list-btn" [class.selected]="selectedGroup() === 5" (click)="selectGroup(5)">Group 5 Name</button>
         <button type="button" class="list-btn" [class.selected]="selectedGroup() === 6" (click)="selectGroup(6)">Group 6 Name</button>
-        <button type="button" class="list-btn find-groups">Find Groups</button>
+        <button type="button" class="list-btn find-groups" routerLink="/groups">Find Groups</button>
       </aside>
 
       <aside class="rooms-col">
@@ -50,7 +50,13 @@
         <button type="button" class="list-btn" [class.selected]="infoTab() === 'age'" (click)="setInfoTab('age')">Age Limit</button>
         <button type="button" class="list-btn" [class.selected]="infoTab() === 'colour'" (click)="setInfoTab('colour')">Colour Theme</button>
 
-        <div class="info-box">Group Description</div>
+        @if (infoTab() === 'info') {
+          <div class="info-box">Group Description</div>
+        } @else if (infoTab() === 'age') {
+          <div class="info-box">Age Limit: 13+</div>
+        } @else {
+          <div class="info-box">Colour Theme: Blue</div>
+        }
       </aside>
     }
   </div>
