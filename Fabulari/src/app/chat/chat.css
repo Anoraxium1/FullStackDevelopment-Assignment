@@ -82,6 +82,25 @@
   margin-top: auto;
 }
 
+.empty-note {
+  font-size: 0.8rem;
+  color: #666;
+  text-align: center;
+  margin: 0;
+}
+
+.admin-link {
+  align-self: flex-start;
+  border: 2px solid #333;
+  border-radius: 8px;
+  background: #fff3cd;
+  padding: 0.35rem 0.75rem;
+  margin: 0.5rem 0 0 0.5rem;
+  cursor: pointer;
+  font-weight: 700;
+  font-size: 0.8rem;
+}
+
 .messages-list {
   border: 2px solid #333;
   border-radius: 8px;

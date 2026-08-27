@@ -1,0 +1,69 @@
+<div class="page-title-bar">
+  <span>Super Admin</span>
+  <button type="button" class="back-btn" routerLink="/chat">&lt;</button>
+</div>
+
+@if (errorMessage()) {
+  <p class="error-text">{{ errorMessage() }}</p>
+}
+
+<div class="dashboard-shell">
+  <div class="card panel">
+    <div class="card-body">
+      <div class="panel-title">Create Group</div>
+      <form class="new-group-form" (ngSubmit)="createGroup()">
+        <input type="text" class="form-control" placeholder="Group name" [(ngModel)]="newGroupName" name="newGroupName" required>
+        <input type="text" class="form-control" placeholder="Description" [(ngModel)]="newGroupDescription" name="newGroupDescription">
+        <input type="number" class="form-control" placeholder="Age limit" [(ngModel)]="newGroupAgeLimit" name="newGroupAgeLimit" min="0">
+        <input type="text" class="form-control" placeholder="Colour theme" [(ngModel)]="newGroupColourTheme" name="newGroupColourTheme">
+        <select class="form-control" [(ngModel)]="newGroupAdminId" name="newGroupAdminId" required>
+          <option [ngValue]="null" disabled>Assign group admin&hellip;</option>
+          @for (user of users(); track user.id) {
+            <option [ngValue]="user.id">{{ user.username }} ({{ user.email }})</option>
+          }
+        </select>
+        <button type="submit" class="btn btn-dark">Create Group</button>
+      </form>
+    </div>
+  </div>
+
+  <div class="card panel">
+    <div class="card-body">
+      <div class="panel-title">All Groups</div>
+      @for (group of groups(); track group.id) {
+        <div class="group-row">
+          <span class="group-name">{{ group.name }}</span>
+          <span class="group-meta">{{ group.members.length }} member(s), {{ adminCountFor(group) }} admin(s)</span>
+          <button type="button" class="btn btn-sm btn-outline-danger">Delete</button>
+        </div>
+      } @empty {
+        <p class="empty-note">No groups yet.</p>
+      }
+    </div>
+  </div>
+
+  <div class="card panel">
+    <div class="card-body">
+      <div class="panel-title">All Users</div>
+      @for (user of users(); track user.id) {
+        <div class="group-row">
+          <span class="group-name">{{ user.username }} &mdash; {{ user.email }}</span>
+          <span class="group-meta">{{ user.role }}</span>
+          <button type="button" class="btn btn-sm btn-outline-danger" [disabled]="user.role === 'superadmin'">Ban</button>
+        </div>
+      }
+    </div>
+  </div>
+
+  <div class="card panel">
+    <div class="card-body">
+      <div class="panel-title">Audit Log</div>
+      @for (entry of auditLog(); track entry.timestamp + entry.type) {
+        <div class="field-box">
+          <strong>{{ entry.type }}</strong> &mdash; {{ entry.details }}
+          <span class="log-date">{{ entry.timestamp }}</span>
+        </div>
+      }
+    </div>
+  </div>
+</div>

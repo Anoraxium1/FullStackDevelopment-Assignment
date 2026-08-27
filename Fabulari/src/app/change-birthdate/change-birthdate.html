@@ -6,9 +6,12 @@
         <label for="newBirthdate" class="form-label">New Birthdate</label>
         <input type="date" class="form-control" id="newBirthdate" name="newBirthdate" [(ngModel)]="newBirthdate">
       </div>
+      @if (errorMessage()) {
+        <div class="alert alert-danger" role="alert">{{ errorMessage() }}</div>
+      }
       <div class="button-row">
-        <button type="button" class="btn btn-outline-dark">Submit</button>
-        <button type="submit" class="btn btn-outline-dark" routerLink="/settings">&lt; Back</button>
+        <button type="submit" class="btn btn-outline-dark">Submit</button>
+        <button type="button" class="btn btn-outline-dark" routerLink="/settings">&lt; Back</button>
       </div>
     </form>
   </div>

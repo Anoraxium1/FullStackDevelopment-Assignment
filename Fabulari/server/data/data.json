@@ -1,0 +1,59 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "email": "super@test.com",
+      "username": "admin",
+      "birthdate": "2000-01-01",
+      "password": "123",
+      "role": "superadmin"
+    },
+    {
+      "id": 2,
+      "email": "lachlan@test.com",
+      "username": "Lachlan",
+      "birthdate": "2006-01-30",
+      "password": "123",
+      "role": "user"
+    },
+    {
+      "id": 3,
+      "email": "jack@test.com",
+      "username": "jack",
+      "birthdate": "2005-02-15",
+      "password": "123",
+      "role": "user"
+    }
+  ],
+  "groups": [
+    {
+      "id": 1,
+      "name": "Demo Group",
+      "description": "first group",
+      "ageLimit": 13,
+      "colourTheme": "Blue",
+      "members": [
+        {
+          "userId": 2,
+          "role": "admin"
+        },
+        {
+          "userId": 3,
+          "role": "member"
+        },
+        {
+          "userId": 1,
+          "role": "member"
+        }
+      ]
+    }
+  ],
+  "rooms": [
+    {
+      "id": 1,
+      "groupId": 1,
+      "name": "General",
+      "description": "Default channel"
+    }
+  ]
+}

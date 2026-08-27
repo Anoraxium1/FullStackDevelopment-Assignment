@@ -6,9 +6,18 @@
 <div class="card groups-card">
     <div class="card-body">
         <div class="panel-title">Groups</div>
+        @if (errorMessage()) {
+            <p class="error-text">{{ errorMessage() }}</p>
+        }
         @for (group of groups(); track group.id) {
             <div class="group-row">
-                <span class="group-name">{{ group.name }}</span>
+                <div class="group-details">
+                    <span class="group-name">{{ group.name }}</span>
+                    <span class="group-meta">{{ group.description }} &middot; Age {{ group.ageLimit }}+ &middot; {{ group.colourTheme }}</span>
+                </div>
+                @if (isAdmin(group)) {
+                    <span class="admin-badge">Admin</span>
+                }
                 <button type="button" class="btn btn-sm btn-outline-dark" [disabled]="hasApplied(group)" (click)="apply(group)">
                     {{ hasApplied(group) ? 'Applied' : 'Apply' }}
                 </button>

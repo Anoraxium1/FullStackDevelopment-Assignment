@@ -1,19 +1,20 @@
-import { Component, signal } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import { RouterLink } from '@angular/router';
 
 interface Group {
   id: number;
   name: string;
+  description: string;
+  ageLimit: number;
+  colourTheme: string;
+  members: { userId: number; role: string }[];
 }
 
-const GROUPS: Group[] = [
-  { id: 1, name: 'Group 1 Name' },
-  { id: 2, name: 'Group 2 Name' },
-  { id: 3, name: 'Group 3 Name' },
-  { id: 4, name: 'Group 4 Name' },
-  { id: 5, name: 'Group 5 Name' },
-  { id: 6, name: 'Group 6 Name' },
-]
+interface CurrentUser {
+  id: number;
+  role: string;
+}
 
 @Component({
   selector: 'app-groups',
@@ -22,14 +23,45 @@ const GROUPS: Group[] = [
   styleUrl: './groups.css',
 })
 export class Groups {
-  protected readonly groups = signal<Group[]>(GROUPS);
-  protected readonly appliedIds = signal<Set<number>>(new Set());
+  private readonly http = inject(HttpClient);
 
-  apply(group: Group) {
-    this.appliedIds.update((ids) => new Set(ids).add(group.id));
+  protected readonly groups = signal<Group[]>([]);
+  protected readonly currentUserId = signal<number | null>(null);
+  protected readonly errorMessage = signal('');
+
+  ngOnInit() {
+    const stored = localStorage.getItem('currentUser');
+    if (stored) {
+      const currentUser: CurrentUser = JSON.parse(stored);
+      this.currentUserId.set(currentUser.id);
+    }
+    this.loadGroups();
+  }
+
+  private loadGroups() {
+    this.http.get<Group[]>('http://localhost:3000/api/groups').subscribe({
+      next: (groups) => this.groups.set(groups),
+      error: () => this.errorMessage.set('Unable to reach the server.'),
+    });
   }
 
   hasApplied(group: Group) {
-    return this.appliedIds().has(group.id);
+    const userId = this.currentUserId();
+    return userId != null && group.members.some((m) => m.userId === userId);
+  }
+
+  isAdmin(group: Group) {
+    const userId = this.currentUserId();
+    return userId != null && group.members.some((m) => m.userId === userId && m.role === 'admin');
+  }
+
+  apply(group: Group) {
+    const userId = this.currentUserId();
+    if (userId == null || this.hasApplied(group)) return;
+
+    this.http.post<Group>(`http://localhost:3000/api/groups/${group.id}/join`, { userId }).subscribe({
+      next: () => this.loadGroups(),
+      error: () => this.errorMessage.set('Unable to join that group.'),
+    });
   }
 }

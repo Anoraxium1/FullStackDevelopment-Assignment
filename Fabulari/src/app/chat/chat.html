@@ -1,10 +1,10 @@
 <div class="chat-shell card chat-card">
-  
+
   <button type="button" class="logout" (click)="logout()">Logout</button>
   <button type="button" class="settings" routerLink="/settings">&#9776;</button>
-  
-  <div class="panel-title group-name-bar">Group Name</div>
-  
+
+  <div class="panel-title group-name-bar">{{ selectedGroup()?.name ?? 'No Group Selected' }}</div>
+
   <div class="toggle-row">
     <button type="button" class="groups-toggle" (click)="toggleGroups()">
       {{ showGroups() ? '&lt;' : '&gt;' }}
@@ -18,25 +18,37 @@
     @if (showGroups()) {
       <aside class="groups-col">
         <div class="panel-title">Groups</div>
-        <button type="button" class="list-btn" [class.selected]="selectedGroup() === 1" (click)="selectGroup(1)">Group 1 Name</button>
-        <button type="button" class="list-btn" [class.selected]="selectedGroup() === 2" (click)="selectGroup(2)">Group 2 Name</button>
-        <button type="button" class="list-btn" [class.selected]="selectedGroup() === 3" (click)="selectGroup(3)">Group 3 Name</button>
-        <button type="button" class="list-btn" [class.selected]="selectedGroup() === 4" (click)="selectGroup(4)">Group 4 Name</button>
-        <button type="button" class="list-btn" [class.selected]="selectedGroup() === 5" (click)="selectGroup(5)">Group 5 Name</button>
-        <button type="button" class="list-btn" [class.selected]="selectedGroup() === 6" (click)="selectGroup(6)">Group 6 Name</button>
+        @for (group of myGroups(); track group.id) {
+          <button type="button" class="list-btn" [class.selected]="selectedGroupId() === group.id" (click)="selectGroup(group.id)">
+            {{ group.name }}
+          </button>
+        } @empty {
+          <p class="empty-note">You're not in any groups yet.</p>
+        }
         <button type="button" class="list-btn find-groups" routerLink="/groups">Find Groups</button>
       </aside>
 
       <aside class="rooms-col">
         <div class="panel-title">Rooms</div>
-        <button type="button" class="list-btn" [class.selected]="selectedRoom() === 1" (click)="selectRoom(1)">Room 1 Name</button>
-        <button type="button" class="list-btn" [class.selected]="selectedRoom() === 2" (click)="selectRoom(2)">Room 2 Name</button>
-        <button type="button" class="list-btn" [class.selected]="selectedRoom() === 3" (click)="selectRoom(3)">Room 3 Name</button>
+        @for (room of rooms(); track room.id) {
+          <button type="button" class="list-btn" [class.selected]="selectedRoomId() === room.id" (click)="selectRoom(room.id)">
+            {{ room.name }}
+          </button>
+        } @empty {
+          <p class="empty-note">No rooms in this group yet.</p>
+        }
       </aside>
     }
 
     <main class="messages-col">
-      <div class="messages-list"></div>
+      @if (isGroupAdmin()) {
+        <button type="button" class="admin-link" [routerLink]="['/admin/group', selectedGroup()?.id]">Manage Group &gt;</button>
+      }
+      @if (isSuperAdmin()) {
+        <button type="button" class="admin-link" routerLink="/admin/super">Super Admin &gt;</button>
+      }
+
+      <div class="messages-list" [style.background-color]="selectedGroup()?.colourTheme ?? null"></div>
 
       <form class="message-input-row">
         <input type="text" class="form-control user-message" placeholder="Users Message">
@@ -51,11 +63,11 @@
         <button type="button" class="list-btn" [class.selected]="infoTab() === 'colour'" (click)="setInfoTab('colour')">Colour Theme</button>
 
         @if (infoTab() === 'info') {
-          <div class="info-box">Group Description</div>
+          <div class="info-box">{{ selectedGroup()?.description ?? 'No description' }}</div>
         } @else if (infoTab() === 'age') {
-          <div class="info-box">Age Limit: 13+</div>
+          <div class="info-box">Age Limit: {{ selectedGroup()?.ageLimit ?? '-' }}+</div>
         } @else {
-          <div class="info-box">Colour Theme: Blue</div>
+          <div class="info-box">Colour Theme: {{ selectedGroup()?.colourTheme ?? '-' }}</div>
         }
       </aside>
     }

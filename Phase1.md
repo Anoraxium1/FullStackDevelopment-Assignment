@@ -250,45 +250,45 @@ TypeScript interfaces mirroring the data structures defined above, used across s
 
 | Component | Feature Area | Purpose |
 |---|---|---|
-| LoginComponent | auth | Email/password login form. |
-| SignupComponent | auth | Registration form (email, username, password, date of birth). |
-| ChatLayoutComponent | chat | Top-level chat page; arranges the group list, room list, message panel, and group info panel. |
-| GroupListComponent | chat | Sidebar listing the groups the user belongs to, plus a "Find Groups" link. |
-| RoomListComponent | chat | Sidebar listing rooms within the selected group. |
-| MessagePanelComponent | chat | Displays messages for the selected room and the message input box. |
-| RoomMembersComponent | chat | Shows users currently present in the selected room. |
-| GroupInfoPanelComponent | chat | Displays/edits group description, age limit, and colour theme (edit only visible to a group admin). |
-| BrowseGroupsComponent | groups | Lists all groups in the system with a "Request to Join" action. |
-| GroupRequestFormComponent | groups | Modal/dialog for a user to submit a new group request (title, description, age limit, colour theme). |
-| RoomRequestFormComponent | groups | Modal/dialog for a user to propose a new room within a group. |
-| PendingRequestsComponent | groups | Lists the current user's pending and past-rejected group/room requests. |
-| ReportUserComponent | shared | Modal/dialog for a user to report another user, with a reason field. |
-| SettingsComponent | settings | Container for the profile and settings panels. |
-| ProfilePanelComponent | settings | Displays/edits profile photo, username, and email (read-only). |
-| ChangePasswordComponent | settings | Old password + new password (x2) form. |
-| ChangeUsernameComponent | settings | New username form. |
-| GroupAdminDashboardComponent | admin | Group admin's management view: pending room/join requests, member list, promote/demote, ban. |
-| SuperAdminDashboardComponent | admin | Super admin's management view: pending group requests, group deletion requests, user ban/delete, audit log. |
-| AuditLogComponent | admin | Filterable, date-ordered table of audit log entries (nested under the super admin dashboard). |
-| NavbarComponent | shared | App-wide navigation, including access to settings and (if applicable) the admin dashboard. |
-| ConfirmDialogComponent | shared | Reusable confirmation modal for destructive actions (e.g. leaving a group, banning a user). |
+| Login | auth | Built. Email/password login form; posts directly to the auth API (no AuthService yet). |
+| Signup | auth | Built. Registration form (email, username, date of birth, password); posts directly to the signup API. |
+| Chat | chat | Built as a single component covering the whole page: renders the group list, room list, message panel, and group info panel inline, rather than being split into separate GroupList/RoomList/MessagePanel/GroupInfoPanel sub-components as originally proposed. Also hosts the Logout button and the settings link directly, since no NavbarComponent exists yet. |
+| RoomMembersComponent | chat | Not yet built — shows users currently present in the selected room, per the outstanding note in `Images/info.txt`. |
+| Groups | groups | Built (originally proposed as BrowseGroupsComponent). Lists all groups in the system with an Apply/Applied action. |
+| GroupRequestFormComponent | groups | Not yet built — modal/dialog for a user to submit a new group request (title, description, age limit, colour theme). |
+| RoomRequestFormComponent | groups | Not yet built — modal/dialog for a user to propose a new room within a group. |
+| PendingRequestsComponent | groups | Not yet built — lists the current user's pending and past-rejected group/room requests. |
+| Report | settings | Built (originally proposed as ReportUserComponent under "shared"). Implemented as its own routed page at `/report`, reachable from Settings' "Submit Report" row, rather than a modal/dialog. |
+| Settings | settings | Built. Currently renders the profile panel and the settings panel directly in one template; no separate ProfilePanelComponent has been split out yet. |
+| ChangePassword | settings | Built. Old password + new password (x2) form. |
+| ChangeUsername | settings | Built. New username form. |
+| ChangeBirthdate | settings | Built. New date-of-birth form, reachable from Settings' "Change Birthdate" row — not part of the original proposal. |
+| GroupAdminDashboardComponent | admin | Not yet built — group admin's management view: pending room/join requests, member list, promote/demote, ban. |
+| SuperAdminDashboardComponent | admin | Not yet built — super admin's management view: pending group requests, group deletion requests, user ban/delete, audit log. |
+| AuditLogComponent | admin | Not yet built — filterable, date-ordered table of audit log entries (nested under the super admin dashboard). |
+| NavbarComponent | shared | Not yet built — nav elements (Logout, the settings link, back arrows) currently live directly in each page's own template instead of a shared navbar. |
+| ConfirmDialogComponent | shared | Not yet built — reusable confirmation modal for destructive actions (e.g. leaving a group, banning a user). |
 
 ### Routes
 
 | Path | Component | Guard | Notes |
 |---|---|---|---|
-| /login | LoginComponent | guestGuard | Redirects to /chat if already logged in. |
-| /signup | SignupComponent | guestGuard | Redirects to /chat if already logged in. |
-| /chat | ChatLayoutComponent | authGuard | Default landing page after login. |
-| /chat/:groupId/:roomId | ChatLayoutComponent | authGuard | Deep link to a specific room. |
-| /groups | BrowseGroupsComponent | authGuard | Browse/request to join a group. |
-| /requests | PendingRequestsComponent | authGuard | The current user's pending/rejected requests. |
-| /settings | SettingsComponent | authGuard | Profile and account settings. |
-| /settings/change-password | ChangePasswordComponent | authGuard | Nested under settings. |
-| /settings/change-username | ChangeUsernameComponent | authGuard | Nested under settings. |
-| /admin/group/:groupId | GroupAdminDashboardComponent | groupAdminGuard | Only accessible to that group's admin(s). |
-| /admin/super | SuperAdminDashboardComponent | superAdminGuard | Only accessible to the single super admin account. |
-| ** (wildcard) | — | — | Redirects to /chat if logged in, otherwise /login. |
+| / | Login | guestGuard* | Redirects to /chat if already logged in. |
+| /signup | Signup | guestGuard* | Redirects to /chat if already logged in. |
+| /chat | Chat | authGuard* | Default landing page after login. |
+| /chat/:groupId/:roomId | Chat | authGuard* | Not yet implemented — the current /chat route takes no params. |
+| /groups | Groups | authGuard* | Browse/request to join a group. |
+| /requests | PendingRequestsComponent | authGuard* | Not yet implemented — the current user's pending/rejected requests. |
+| /settings | Settings | authGuard* | Profile and account settings. |
+| /change-password | ChangePassword | authGuard* | Top-level route, not nested under /settings as originally proposed. |
+| /change-username | ChangeUsername | authGuard* | Top-level route, not nested under /settings as originally proposed. |
+| /change-birthdate | ChangeBirthdate | authGuard* | New route, not part of the original proposal. |
+| /report | Report | authGuard* | Currently a dedicated routed page rather than the modal originally proposed. |
+| /admin/group/:groupId | GroupAdminDashboardComponent | groupAdminGuard* | Not yet implemented — only accessible to that group's admin(s). |
+| /admin/super | SuperAdminDashboardComponent | superAdminGuard* | Not yet implemented — only accessible to the single super admin account. |
+| ** (wildcard) | — | — | Not yet implemented. |
+
+\* No route guards are wired up in the current code yet — every route above is currently open to direct navigation regardless of login state.
 
 ## Proposed Server Endpoints
 
@@ -401,7 +401,7 @@ This is the signup page, this is where a new user creates their account by enter
 
 ![Chat Wireframe](Images/3813ICT-Assignment-Chat-Page-Wireframe.png)
 
-This is the chat page, this is where the user spends most of their time once they're logged in. On the left is the list of groups the user is in, with a Find Groups button at the bottom that takes them to the Groups page (FR-12). Next to that is the list of rooms inside whichever group is selected (FR-16). The middle panel shows the messages in the selected room, each with a timestamp and the sender's photo (FR-11, FR-21), plus a box at the bottom to type and send a new message (FR-1, FR-18). On the right, a group admin can view and edit the group's description, age limit and colour theme (FR-23, FR-24). The hamburger icon in the corner is for the responsive sidebar toggle explained below, and this page still needs the room member list (FR-19) and an admin badge on messages (FR-34) added, as noted in Images/info.txt.
+This is the chat page, this is where the user spends most of their time once they're logged in. On the left is the list of groups the user is in, with a Find Groups button at the bottom that takes them to the Groups page (FR-12). Next to that is the list of rooms inside whichever group is selected (FR-16). The middle panel shows the messages in the selected room, each with a timestamp and the sender's photo (FR-11, FR-21), plus a box at the bottom to type and send a new message (FR-1, FR-18). On the right, a group admin can view and edit the group's description, age limit and colour theme (FR-23, FR-24). In the current build, the hamburger icon in the top-right corner links to Settings rather than acting as a sidebar toggle; the groups/rooms column and the group-info column are instead shown or hidden independently via two dedicated arrow buttons, and a Logout button sits in the top-left corner. This page still needs the room member list (FR-19) and an admin badge on messages (FR-34) added, as noted in Images/info.txt.
 
 ### 4. Groups
 
@@ -413,7 +413,7 @@ This is the groups page, this is where the user can see every group that exists 
 
 ![Settings Wireframe](Images/3813ICT-Assignment-Settings-Page-Wireframe.png)
 
-This is the settings page, this is where the user manages their account. It's split into a Profile panel on the left showing their photo, email, username and password (FR-20), and a Settings panel on the right with the actual controls. The Dark/Light Mode switch is FR-6. Change Password and Change Username both open their own separate pages rather than being editable right there, and Submit Report is where a user reports someone else, which is the step a group admin needs before they can ban that person.
+This is the settings page, this is where the user manages their account. It's split into a Profile panel on the left showing their photo, email, username and date of birth (FR-20), and a Settings panel on the right with the actual controls. The Dark/Light Mode switch is FR-6. Change Password, Change Username, and Change Birthdate (added since this wireframe was drawn) each open their own separate page rather than being editable right there, and Submit Report is where a user reports someone else, which is the step a group admin needs before they can ban that person.
 
 ### 6. Change Password
 
@@ -429,4 +429,4 @@ This is the change username page, this is where the user updates their username,
 
 ### Responsiveness
 
-Desktop is the primary target and tablet is a bonus, per FR-7. The layout most affected by a smaller viewport is Chat, since it is the only page built from four side-by-side columns. Below a tablet-width breakpoint, the Groups and Rooms sidebar columns collapse and are hidden by default, leaving just the message panel and the admin info panel; the hamburger icon in the Chat page's top corner toggles those sidebars back into view over the top of the message panel. The Settings page's two side-by-side panels (Profile and Settings) stack vertically instead of sitting side by side once the viewport is too narrow to fit both at a readable width. Login, Signup, Groups, Change Password and Change Username are already single-column layouts, so they don't need to adapt further beyond their max-width shrinking to fit the viewport.
+Desktop is the primary target and tablet is a bonus, per FR-7. The layout most affected by a smaller viewport is Chat, since it is the only page built from side-by-side columns. In the current build, the groups/rooms column and the group-info column are shown or hidden via two dedicated toggle buttons that work at any viewport width, rather than being tied to a breakpoint; below a 900px-wide viewport a media query narrows those columns and shortens the message list / info panel instead of hiding them outright. The Settings page's two panels (Profile and Settings) do not yet stack vertically on narrow viewports — that responsive behaviour from the original proposal has not been implemented. Login, Signup, Groups, Change Password, Change Username, and Change Birthdate are single-column layouts, so they don't need to adapt further beyond their max-width shrinking to fit the viewport.

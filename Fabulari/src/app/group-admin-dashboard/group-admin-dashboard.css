@@ -1,0 +1,118 @@
+.page-title-bar {
+  max-width: 700px;
+  margin: 1.5rem auto 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border: 2px solid #333;
+  border-radius: 8px;
+  padding: 0.75rem 1rem;
+  font-weight: 700;
+}
+
+.back-btn {
+  border: 2px solid #333;
+  border-radius: 8px;
+  background: #f1f1f1;
+  padding: 0.25rem 0.75rem;
+  cursor: pointer;
+}
+
+.error-text {
+  color: #b00020;
+  text-align: center;
+}
+
+.dashboard-shell {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  max-width: 700px;
+  margin: 0 auto 2rem;
+}
+
+.panel {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+}
+
+.panel-title {
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.field-box {
+  border: 2px solid #333;
+  border-radius: 8px;
+  padding: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.member-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  border: 2px solid #333;
+  border-radius: 8px;
+  padding: 0.5rem 0.75rem;
+  margin-bottom: 0.5rem;
+}
+
+.member-name {
+  flex: 1;
+}
+
+.role-badge {
+  border: 1px solid #999;
+  border-radius: 6px;
+  padding: 0.1rem 0.5rem;
+  font-size: 0.75rem;
+  text-transform: capitalize;
+}
+
+.role-admin {
+  background: #d4edda;
+  border-color: #28a745;
+}
+
+.empty-note {
+  font-size: 0.85rem;
+  color: #666;
+  text-align: center;
+}
+
+.new-room-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.edit-group-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.edit-group-form label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.room-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  border: 2px solid #333;
+  border-radius: 8px;
+  padding: 0.5rem 0.75rem;
+  margin-bottom: 0.5rem;
+}
+
+.room-name {
+  flex: 1;
+}

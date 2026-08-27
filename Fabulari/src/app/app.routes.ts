@@ -8,6 +8,8 @@ import { ChangeUsername } from './change-username/change-username';
 import { ChangeBirthdate } from './change-birthdate/change-birthdate';
 import { Report } from './report/report';
 import { Groups } from './groups/groups';
+import { GroupAdminDashboard } from './group-admin-dashboard/group-admin-dashboard';
+import { SuperAdminDashboard } from './super-admin-dashboard/super-admin-dashboard';
 
 export const routes: Routes = [
     { path: '', component: Login, title: 'Login' },
@@ -19,4 +21,6 @@ export const routes: Routes = [
     { path: 'change-birthdate', component: ChangeBirthdate, title: 'Change Birthdate' },
     { path: 'report', component: Report, title: 'Report' },
     { path: 'groups', component: Groups, title: 'Groups' },
+    { path: 'admin/group/:groupId', component: GroupAdminDashboard, title: 'Group Admin' },
+    { path: 'admin/super', component: SuperAdminDashboard, title: 'Super Admin' },
 ];

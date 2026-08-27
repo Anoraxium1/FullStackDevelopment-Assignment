@@ -1,0 +1,72 @@
+<div class="page-title-bar">
+  <span>Group Admin &mdash; {{ group()?.name ?? '...' }}</span>
+  <button type="button" class="back-btn" routerLink="/chat">&lt;</button>
+</div>
+
+@if (errorMessage()) {
+  <p class="error-text">{{ errorMessage() }}</p>
+}
+
+<div class="dashboard-shell">
+  <div class="card panel">
+    <div class="card-body">
+      <div class="panel-title">Group Details</div>
+      <form class="edit-group-form" (ngSubmit)="saveGroupDetails()">
+        <label>
+          Description
+          <textarea class="form-control" [(ngModel)]="editDescription" name="editDescription" rows="2"></textarea>
+        </label>
+        <label>
+          Age Limit
+          <input type="number" class="form-control" [(ngModel)]="editAgeLimit" name="editAgeLimit" min="0">
+        </label>
+        <label>
+          Colour Theme
+          <input type="text" class="form-control" [(ngModel)]="editColourTheme" name="editColourTheme">
+        </label>
+        <button type="submit" class="btn btn-dark">Save Changes</button>
+      </form>
+    </div>
+  </div>
+
+  <div class="card panel">
+    <div class="card-body">
+      <div class="panel-title">Members</div>
+      @for (member of members(); track member.userId) {
+        <div class="member-row">
+          <span class="member-name">{{ member.user?.username ?? ('User #' + member.userId) }}</span>
+          <span class="role-badge" [class.role-admin]="member.role === 'admin'">{{ member.role }}</span>
+          <button
+            type="button"
+            class="btn btn-sm btn-outline-dark"
+            [disabled]="isSelf(member)"
+            [title]="isSelf(member) ? 'You cannot change your own admin status.' : ''"
+            (click)="toggleRole(member)"
+          >
+            {{ member.role === 'admin' ? 'Demote' : 'Promote' }}
+          </button>
+        </div>
+      }
+    </div>
+  </div>
+
+  <div class="card panel">
+    <div class="card-body">
+      <div class="panel-title">Channels</div>
+      @for (room of rooms(); track room.id) {
+        <div class="room-row">
+          <span class="room-name">{{ room.name }} &mdash; {{ room.description }}</span>
+          <button type="button" class="btn btn-sm btn-outline-danger" (click)="deleteRoom(room)">Delete</button>
+        </div>
+      } @empty {
+        <p class="empty-note">No channels yet.</p>
+      }
+
+      <form class="new-room-form" (ngSubmit)="createRoom()">
+        <input type="text" class="form-control" placeholder="Channel name" [(ngModel)]="newRoomName" name="newRoomName" required>
+        <input type="text" class="form-control" placeholder="Channel description" [(ngModel)]="newRoomDescription" name="newRoomDescription">
+        <button type="submit" class="btn btn-dark">Create Channel</button>
+      </form>
+    </div>
+  </div>
+</div>
