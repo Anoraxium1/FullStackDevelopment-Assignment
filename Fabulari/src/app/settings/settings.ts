@@ -13,6 +13,7 @@ export class Settings {
 
   toggleTheme() {
     this.darkMode.update((v) => !v);
+    document.body.classList.toggle('dark-theme', this.darkMode());
   }
 
   togglePasswordVisibility() {

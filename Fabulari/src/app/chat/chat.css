@@ -25,7 +25,6 @@
   margin-top: 0.5rem;
   margin-left: 0.25rem;
 }
-
 .messages-col {
   flex: 1;
   min-width: 0;
@@ -87,14 +86,14 @@
   border: 2px solid #333;
   border-radius: 8px;
   padding: 0.75rem;
-  height: 50vh;
+  height: 75vh;
   margin-top: 0.5rem;
 }
 
 .message-input-row {
   display: flex;
   gap: 0.5rem;
-  margin-top: 0.5rem;
+  margin-top: 7.75rem;
 }
 
 .info-box {
@@ -134,8 +133,8 @@ cursor: pointer;
 
 @media (max-width: 900px) {
   .groups-col, .rooms-col, .info-col {
-    width: 8vw;
-    min-width: 20px;
+    width: 12vw;
+    min-width: 30px;
     margin-top: 0.5rem;
   }
 
@@ -145,7 +144,7 @@ cursor: pointer;
 
   .list-btn, .panel-title {
     padding: 0.35rem;
-    font-size: 0.85rem;
+    font-size: clamp(0.7rem, 1vw, 1rem);
   }
 
   .messages-list, .info-box {
