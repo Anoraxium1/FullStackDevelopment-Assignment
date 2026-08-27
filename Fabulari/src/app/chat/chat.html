@@ -1,13 +1,19 @@
 <div class="chat-shell card chat-card">
+  
   <button type="button" class="logout" routerLink="/">Logout</button>
   <button type="button" class="settings" routerLink="/settings">&#9776;</button>
+  
   <div class="panel-title group-name-bar">Group Name</div>
-  <button type="button" class="description-toggle" (click)="toggleDescription()">
-    {{ showDescription() ? '&gt;' : '&lt;' }}
-  </button>
-  <button type="button" class="groups-toggle" (click)="toggleGroups()">
-    {{ showGroups() ? '&lt;' : '&gt;' }}
+  
+  <div class="toggle-row">
+    <button type="button" class="groups-toggle" (click)="toggleGroups()">
+      {{ showGroups() ? '&lt;' : '&gt;' }}
     </button>
+    <button type="button" class="description-toggle" (click)="toggleDescription()">
+      {{ showDescription() ? '&gt;' : '&lt;' }}
+    </button>
+  </div>
+
    <div class="card-body">
     @if (showGroups()) {
       <aside class="groups-col">

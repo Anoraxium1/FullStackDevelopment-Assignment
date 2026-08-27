@@ -5,22 +5,25 @@
   width: calc(100vw - 20px);
   height: calc(100vh - 110px);
   margin: 1rem auto;
+  font-size: clamp(0.8rem, 1.2vw, 1rem);
 }
 
 .card-body {
   display: flex;
   gap: 0.75rem;
   align-items: stretch;
+  padding: 0.25rem;
 }
 
 .groups-col, .rooms-col, .info-col {
-  width: 8vw;
-  min-width: 110px;
+  width: 7vw;
+  min-width: 100px;
   flex-shrink: 0;
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
-  margin-top: 3.25rem;
+  margin-top: 0.5rem;
+  margin-left: 0.25rem;
 }
 
 .messages-col {
@@ -28,7 +31,7 @@
   min-width: 0;
   display: flex;
   flex-direction: column;
-  margin-top: 2.1rem;
+  margin-top: 0rem;
 }
 
 .panel-title {
@@ -49,16 +52,16 @@
   border: 2px solid #333;
   border-radius: 8px;
   padding: 0.5rem 1.5rem;
-  width: 70%;
+  width: 45%;
 }
 
 .settings {
   position: absolute;
   top: 0.75rem;
-  right: 0.75rem;
+  right: 0.25rem;
   background: none;
   border: none;
-  font-size: 1.25rem;
+  font-size: clamp(1rem, 2vw, 1.25rem);
   cursor: pointer;
 }
 
@@ -105,7 +108,7 @@
 .logout {
   position: absolute;
   top: 0.75rem;
-  left: 0.75rem;
+  left: 0.25rem;
   background: none;
   border: 2px solid #333;
   border-radius: 8px;
@@ -113,35 +116,27 @@
   cursor: pointer;
 }
 
-.description-toggle {
-  position: absolute;
-  top: 50%;
-  right: 0.5rem;
-  transform: translateY(-50%);
-  width: 32px;
-  border: 2px solid #333;
-  border-radius: 8px;
-  background: #f1f1f1;
-  cursor: pointer;
+.description-toggle, .groups-toggle {
+width: 32px;
+border: 2px solid #333;
+border-radius: 8px;
+background: #f1f1f1;
+cursor: pointer;
 }
 
-.groups-toggle {
-  position: absolute;
-  top: 50%;
-  left: 0.5rem;
-  transform: translateY(-50%);
-  width: 32px;
-  border: 2px solid #333;
-  border-radius: 8px;
-  background: #f1f1f1;
-  cursor: pointer;
+.toggle-row {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 3.5rem;
+  margin-left: 0.25rem;
+  margin-right: 0.25rem;
 }
 
 @media (max-width: 900px) {
   .groups-col, .rooms-col, .info-col {
     width: 8vw;
     min-width: 20px;
-    margin-top: 2.5rem;
+    margin-top: 0.5rem;
   }
 
   .card-body {
