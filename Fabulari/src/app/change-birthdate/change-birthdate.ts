@@ -1,9 +1,15 @@
 import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { RouterLink } from '@angular/router';
 
 @Component({
-  imports: [],
   selector: 'app-change-birthdate',
-  styleUrl: './change-birthdate.css',
+  imports: [FormsModule, RouterLink],
   templateUrl: './change-birthdate.html',
+  styleUrl: './change-birthdate.css',
 })
-export class ChangeBirthdate {}
+export class ChangeBirthdate {
+  protected newBirthdate = '';
+
+  onSubmit() {}
+}

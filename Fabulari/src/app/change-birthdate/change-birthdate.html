@@ -1,1 +1,15 @@
-<p>change-birthdate works!</p>
+<div class="card auth-card">
+  <div class="card-body">
+    <h1 class="auth-title">Change Birthdate</h1>
+    <form (ngSubmit)="onSubmit()">
+      <div class="form-field">
+        <label for="newBirthdate" class="form-label">New Birthdate</label>
+        <input type="date" class="form-control" id="newBirthdate" name="newBirthdate" [(ngModel)]="newBirthdate">
+      </div>
+      <div class="button-row">
+        <button type="button" class="btn btn-outline-dark">Submit</button>
+        <button type="submit" class="btn btn-outline-dark" routerLink="/settings">&lt; Back</button>
+      </div>
+    </form>
+  </div>
+</div>
