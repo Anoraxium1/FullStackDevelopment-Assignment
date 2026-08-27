@@ -1,4 +1,5 @@
 const express = require('express');
+const cors = require('cors');
 const app = express();
 const http = require('http').Server(app);
 const io = require('socket.io')(http, {
@@ -8,7 +9,13 @@ const io = require('socket.io')(http, {
     },
 });
 
-const initializeSockets = require('./sockets');
+app.use(cors());
+app.use(express.json());
+
+const initializeRoutes = require('./index');
+initializeRoutes(app);
+
+const initializeSockets = require('./socket');
 initializeSockets(io);
 
 module.exports = http;
