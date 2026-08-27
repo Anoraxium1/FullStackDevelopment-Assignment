@@ -27,3 +27,10 @@
 .button-row .btn {
   flex: 1;
 }
+
+.form-check {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 0.5rem;
+}

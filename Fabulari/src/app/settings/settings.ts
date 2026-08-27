@@ -9,8 +9,13 @@ import { RouterLink } from '@angular/router';
 })
 export class Settings {
   protected readonly darkMode = signal(false);
+  protected readonly showPassword = signal(false);
 
   toggleTheme() {
     this.darkMode.update((v) => !v);
+  }
+
+  togglePasswordVisibility() {
+    this.showPassword.update((v) => !v);
   }
 }
