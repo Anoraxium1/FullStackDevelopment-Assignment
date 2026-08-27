@@ -2,6 +2,9 @@
   text-align: left;
   position: relative;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  width: calc(100vw - 20px);
+  height: calc(100vh - 110px);
+  margin: 1rem auto;
 }
 
 .card-body {
@@ -25,6 +28,7 @@
   min-width: 0;
   display: flex;
   flex-direction: column;
+  margin-top: 2.1rem;
 }
 
 .panel-title {
@@ -36,8 +40,16 @@
 }
 
 .group-name-bar {
-  display: flex;
-  justify-content: center;
+  position: absolute;
+  top: 0.75rem;
+  left: 50%;
+  transform: translateX(-50%);
+  font-weight: 700;
+  background: #f1f1f1;
+  border: 2px solid #333;
+  border-radius: 8px;
+  padding: 0.5rem 1.5rem;
+  width: 70%;
 }
 
 .settings {
@@ -90,10 +102,45 @@
   text-align: center;
 }
 
+.logout {
+  position: absolute;
+  top: 0.75rem;
+  left: 0.75rem;
+  background: none;
+  border: 2px solid #333;
+  border-radius: 8px;
+  padding: 0.25rem 0.75rem;
+  cursor: pointer;
+}
+
+.description-toggle {
+  position: absolute;
+  top: 50%;
+  right: 0.5rem;
+  transform: translateY(-50%);
+  width: 32px;
+  border: 2px solid #333;
+  border-radius: 8px;
+  background: #f1f1f1;
+  cursor: pointer;
+}
+
+.groups-toggle {
+  position: absolute;
+  top: 50%;
+  left: 0.5rem;
+  transform: translateY(-50%);
+  width: 32px;
+  border: 2px solid #333;
+  border-radius: 8px;
+  background: #f1f1f1;
+  cursor: pointer;
+}
+
 @media (max-width: 900px) {
   .groups-col, .rooms-col, .info-col {
-    width: 12vw;
-    min-width: 80px;
+    width: 8vw;
+    min-width: 20px;
     margin-top: 2.5rem;
   }
 
@@ -107,6 +154,6 @@
   }
 
   .messages-list, .info-box {
-    height: 30vh;
+    height: 50vh;
   }
 }
