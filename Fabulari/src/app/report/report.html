@@ -1,0 +1,19 @@
+<div class="card auth-card">
+  <div class="card-body">
+    <h1 class="auth-title">Submit Report</h1>
+    <form (ngSubmit)="onSubmit()">
+      <div class="form-field">
+        <label for="username" class="form-label">Username</label>
+        <input type="text" class="form-control" id="username" name="username" [(ngModel)]="username">
+      </div>
+      <div class="form-field">
+        <label for="username" class="form-label">Reason</label>
+        <textarea type="text" class="form-control" id="reason" name="reason" rows="4" [(ngModel)]="reason"></textarea>
+      </div>
+      <div class="button-row">
+        <button type="button" class="btn btn-outline-dark">Submit</button>
+        <button type="submit" class="btn btn-outline-dark" routerLink="/settings">&lt; Back</button>
+      </div>
+    </form>
+  </div>
+</div>
